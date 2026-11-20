@@ -22,5 +22,8 @@
     "test:integration": "node --test --test-concurrency=1 \"tests/integration/**/*.test.js\"",
     "evaluate": "node evaluation/benchmark.js",
     "evaluate:compare": "node evaluation/compare.js"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.1"
   }
 }

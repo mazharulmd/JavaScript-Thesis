@@ -1,0 +1,2395 @@
+{
+  "benchmark": "BAC Benchmark API (test-api)",
+  "build": "vulnerable (FLAWS=all)",
+  "specVersion": "1.0.0",
+  "generatedBy": "evaluation/build-ground-truth.js (hand-labelled vulnerable list + documented applicability rules)",
+  "unit": "One case = (HTTP method, OpenAPI path template, category). A tool detects a case if at least one finding maps to it.",
+  "categories": [
+    "BOLA",
+    "BFLA",
+    "AUTH_MISSING",
+    "AUTH_INVALID_TOKEN",
+    "JWT_SIGNATURE",
+    "JWT_NONE_ALG",
+    "JWT_EXPIRED"
+  ],
+  "summary": {
+    "BOLA": {
+      "vulnerable": 8,
+      "secure": 8
+    },
+    "BFLA": {
+      "vulnerable": 6,
+      "secure": 9
+    },
+    "AUTH_MISSING": {
+      "vulnerable": 2,
+      "secure": 41
+    },
+    "AUTH_INVALID_TOKEN": {
+      "vulnerable": 1,
+      "secure": 40
+    },
+    "JWT_SIGNATURE": {
+      "vulnerable": 1,
+      "secure": 39
+    },
+    "JWT_NONE_ALG": {
+      "vulnerable": 1,
+      "secure": 38
+    },
+    "JWT_EXPIRED": {
+      "vulnerable": 1,
+      "secure": 39
+    }
+  },
+  "totals": {
+    "cases": 246,
+    "scored": 234,
+    "excluded": 12,
+    "vulnerable": 20
+  },
+  "cases": [
+    {
+      "id": "GT-BOLA-001",
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "getAccountSummary",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "notes": "True-negative pattern. Path id is ignored; the caller's own summary is returned (200)."
+    },
+    {
+      "id": "GT-BOLA-002",
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "deleteDevice",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation."
+    },
+    {
+      "id": "GT-BOLA-003",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "getDevice",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation."
+    },
+    {
+      "id": "GT-BOLA-004",
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "updateDeviceConfig",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "notes": "True-negative pattern. Accepted with 202 for everybody, applied only for the owner."
+    },
+    {
+      "id": "GT-BOLA-005",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "getDeviceReadings",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_READINGS_READ",
+      "kind": "read",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ],
+      "notes": "The response carries no owner identifier."
+    },
+    {
+      "id": "GT-BOLA-006",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "addDeviceReading",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_READINGS_WRITE",
+      "kind": "write",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ]
+    },
+    {
+      "id": "GT-BOLA-007",
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "deleteDocument",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "notes": "True-negative pattern. Soft denial: 200 {success:false}, nothing deleted."
+    },
+    {
+      "id": "GT-BOLA-008",
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "getDocument",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "notes": "True-negative pattern. Public documents of other users are readable by design (200)."
+    },
+    {
+      "id": "GT-BOLA-009",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "updateDocument",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_DOCUMENTS_WRITE",
+      "kind": "write",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ]
+    },
+    {
+      "id": "GT-BOLA-010",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "getInvoice",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_INVOICES_READ",
+      "kind": "read",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ],
+      "notes": "Ownership is nested at data.invoice.billing.accountId."
+    },
+    {
+      "id": "GT-BOLA-011",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "deleteOrder",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_ORDERS_DELETE",
+      "kind": "delete",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ]
+    },
+    {
+      "id": "GT-BOLA-012",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "getOrder",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_ORDERS_READ",
+      "kind": "read",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ]
+    },
+    {
+      "id": "GT-BOLA-013",
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "updateOrder",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation."
+    },
+    {
+      "id": "GT-BOLA-014",
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "operationId": "getProfile",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation."
+    },
+    {
+      "id": "GT-BOLA-015",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "getUser",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_USERS_READ",
+      "kind": "read",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ]
+    },
+    {
+      "id": "GT-BOLA-016",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "vulnerable": true,
+      "operationId": "updateUser",
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "flawId": "BOLA_USERS_WRITE",
+      "kind": "write",
+      "attackers": [
+        "user→user",
+        "guest→user"
+      ]
+    },
+    {
+      "id": "GT-BFLA-001",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "BFLA",
+      "vulnerable": true,
+      "operationId": "adminCreateAnnouncement",
+      "expected": "Only roles [admin] may invoke the function.",
+      "flawId": "BFLA_ANNOUNCEMENTS_CREATE",
+      "kind": "write",
+      "attackers": [
+        "user",
+        "guest"
+      ]
+    },
+    {
+      "id": "GT-BFLA-002",
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "adminAuditLogs",
+      "expected": "Only roles [admin] may invoke the function.",
+      "notes": "True-negative pattern. Soft denial: 200 {success:false}."
+    },
+    {
+      "id": "GT-BFLA-003",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "BFLA",
+      "vulnerable": true,
+      "operationId": "adminStartBackup",
+      "expected": "Only roles [admin] may invoke the function.",
+      "flawId": "BFLA_BACKUPS_CREATE",
+      "kind": "write",
+      "attackers": [
+        "user",
+        "guest"
+      ]
+    },
+    {
+      "id": "GT-BFLA-004",
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "adminReports",
+      "expected": "Only roles [admin] may invoke the function.",
+      "notes": "True-negative pattern. Role-filtered view: non-admins get 200 {scope:\"self\", reports:[]}."
+    },
+    {
+      "id": "GT-BFLA-005",
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "adminStats",
+      "expected": "Only roles [admin] may invoke the function."
+    },
+    {
+      "id": "GT-BFLA-006",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "vulnerable": true,
+      "operationId": "adminListUsers",
+      "expected": "Only roles [admin] may invoke the function.",
+      "flawId": "BFLA_ADMIN_USERS_LIST",
+      "kind": "read",
+      "attackers": [
+        "user",
+        "guest"
+      ]
+    },
+    {
+      "id": "GT-BFLA-007",
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "adminCreateUser",
+      "expected": "Only roles [admin] may invoke the function."
+    },
+    {
+      "id": "GT-BFLA-008",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "BFLA",
+      "vulnerable": true,
+      "operationId": "adminDeleteUser",
+      "expected": "Only roles [admin] may invoke the function.",
+      "flawId": "BFLA_ADMIN_USERS_DELETE",
+      "kind": "delete",
+      "attackers": [
+        "user",
+        "guest"
+      ]
+    },
+    {
+      "id": "GT-BFLA-009",
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "adminChangeRole",
+      "expected": "Only roles [admin] may invoke the function."
+    },
+    {
+      "id": "GT-BFLA-010",
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "registerDevice",
+      "expected": "Only roles [admin, user] may invoke the function."
+    },
+    {
+      "id": "GT-BFLA-011",
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "BFLA",
+      "vulnerable": true,
+      "operationId": "createDocument",
+      "expected": "Only roles [admin, user] may invoke the function.",
+      "flawId": "BFLA_DOCUMENTS_CREATE_GUEST",
+      "kind": "write",
+      "attackers": [
+        "guest"
+      ]
+    },
+    {
+      "id": "GT-BFLA-012",
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "createOrder",
+      "expected": "Only roles [admin, user] may invoke the function."
+    },
+    {
+      "id": "GT-BFLA-013",
+      "method": "POST",
+      "path": "/api/products",
+      "category": "BFLA",
+      "vulnerable": true,
+      "operationId": "createProduct",
+      "expected": "Only roles [admin] may invoke the function.",
+      "flawId": "BFLA_PRODUCTS_CREATE",
+      "kind": "write",
+      "attackers": [
+        "user",
+        "guest"
+      ]
+    },
+    {
+      "id": "GT-BFLA-014",
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "deleteProduct",
+      "expected": "Only roles [admin] may invoke the function."
+    },
+    {
+      "id": "GT-BFLA-015",
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "vulnerable": false,
+      "operationId": "updateProduct",
+      "expected": "Only roles [admin] may invoke the function."
+    },
+    {
+      "id": "GT-AUTH_MISSING-001",
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getAccountSummary",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-002",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminCreateAnnouncement",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-003",
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminAuditLogs",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-004",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminStartBackup",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-005",
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminReports",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-006",
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminStats",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-007",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminListUsers",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-008",
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminCreateUser",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-009",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminDeleteUser",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-010",
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "adminChangeRole",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-011",
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getAnalyticsSummary",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-012",
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listAnnouncements",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-013",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getCurrentUser",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-014",
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listDevices",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-015",
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "registerDevice",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-016",
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "deleteDevice",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-017",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getDevice",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-018",
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "updateDeviceConfig",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-019",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getDeviceReadings",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-020",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "addDeviceReading",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-021",
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listDocuments",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-022",
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "createDocument",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-023",
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "deleteDocument",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-024",
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getDocument",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-025",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "updateDocument",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-026",
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listInvoices",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-027",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getInvoice",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-028",
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listMessages",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-029",
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listNotifications",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-030",
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listOrders",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-031",
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "createOrder",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-032",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "deleteOrder",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-033",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getOrder",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-034",
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "updateOrder",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-035",
+      "method": "POST",
+      "path": "/api/products",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "createProduct",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-036",
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "deleteProduct",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-037",
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "updateProduct",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-038",
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getProfile",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-039",
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "listSessions",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-040",
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "AUTH_MISSING",
+      "vulnerable": true,
+      "operationId": "createSupportTicket",
+      "expected": "Requests without credentials are rejected (401).",
+      "flawId": "AUTH_MISSING_TICKETS",
+      "kind": "write"
+    },
+    {
+      "id": "GT-AUTH_MISSING-041",
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "AUTH_MISSING",
+      "vulnerable": true,
+      "operationId": "getDiagnostics",
+      "expected": "Requests without credentials are rejected (401).",
+      "flawId": "AUTH_MISSING_DIAGNOSTICS",
+      "kind": "read"
+    },
+    {
+      "id": "GT-AUTH_MISSING-042",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "getUser",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_MISSING-043",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "operationId": "updateUser",
+      "expected": "Requests without credentials are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-001",
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getAccountSummary",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-002",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminCreateAnnouncement",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-003",
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminAuditLogs",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-004",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminStartBackup",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-005",
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminReports",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-006",
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminStats",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-007",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminListUsers",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-008",
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminCreateUser",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-009",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminDeleteUser",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-010",
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "adminChangeRole",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-011",
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": true,
+      "operationId": "getAnalyticsSummary",
+      "expected": "Malformed bearer tokens are rejected (401).",
+      "flawId": "AUTH_INVALID_ANALYTICS",
+      "kind": "read"
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-012",
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listAnnouncements",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-013",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getCurrentUser",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-014",
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listDevices",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-015",
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "registerDevice",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-016",
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "deleteDevice",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-017",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getDevice",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-018",
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "updateDeviceConfig",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-019",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getDeviceReadings",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-020",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "addDeviceReading",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-021",
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listDocuments",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-022",
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "createDocument",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-023",
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "deleteDocument",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-024",
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getDocument",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-025",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "updateDocument",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-026",
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listInvoices",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-027",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getInvoice",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-028",
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listMessages",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-029",
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listNotifications",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-030",
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listOrders",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-031",
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "createOrder",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-032",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "deleteOrder",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-033",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getOrder",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-034",
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "updateOrder",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-035",
+      "method": "POST",
+      "path": "/api/products",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "createProduct",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-036",
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "deleteProduct",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-037",
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "updateProduct",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-038",
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getProfile",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-039",
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "listSessions",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-040",
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "createSupportTicket",
+      "expected": "Malformed bearer tokens are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-041",
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getDiagnostics",
+      "expected": "Malformed bearer tokens are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-042",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "getUser",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-AUTH_INVALID_TOKEN-043",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "operationId": "updateUser",
+      "expected": "Malformed bearer tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-001",
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getAccountSummary",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-002",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminCreateAnnouncement",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-003",
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminAuditLogs",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-004",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminStartBackup",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-005",
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminReports",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-006",
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminStats",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-007",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminListUsers",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-008",
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminCreateUser",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-009",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminDeleteUser",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-010",
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "adminChangeRole",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-011",
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getAnalyticsSummary",
+      "expected": "Tokens with an invalid signature are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_INVALID_TOKEN on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-012",
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listAnnouncements",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-013",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getCurrentUser",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-014",
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listDevices",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-015",
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "registerDevice",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-016",
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "deleteDevice",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-017",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getDevice",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-018",
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "updateDeviceConfig",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-019",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getDeviceReadings",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-020",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "addDeviceReading",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-021",
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listDocuments",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-022",
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "createDocument",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-023",
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "deleteDocument",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-024",
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getDocument",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-025",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "updateDocument",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-026",
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listInvoices",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-027",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getInvoice",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-028",
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": true,
+      "operationId": "listMessages",
+      "expected": "Tokens with an invalid signature are rejected (401).",
+      "flawId": "JWT_SIGNATURE_MESSAGES",
+      "kind": "read"
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-029",
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listNotifications",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-030",
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listOrders",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-031",
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "createOrder",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-032",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "deleteOrder",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-033",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getOrder",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-034",
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "updateOrder",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-035",
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "createProduct",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-036",
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "deleteProduct",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-037",
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "updateProduct",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-038",
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getProfile",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-039",
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "listSessions",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-040",
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "createSupportTicket",
+      "expected": "Tokens with an invalid signature are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-041",
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getDiagnostics",
+      "expected": "Tokens with an invalid signature are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-042",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "getUser",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_SIGNATURE-043",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "operationId": "updateUser",
+      "expected": "Tokens with an invalid signature are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-001",
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getAccountSummary",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-002",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminCreateAnnouncement",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-003",
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminAuditLogs",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-004",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminStartBackup",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-005",
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminReports",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-006",
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminStats",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-007",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminListUsers",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-008",
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminCreateUser",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-009",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminDeleteUser",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-010",
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "adminChangeRole",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-011",
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getAnalyticsSummary",
+      "expected": "Unsigned tokens (alg none) are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_INVALID_TOKEN on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-012",
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listAnnouncements",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-013",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getCurrentUser",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-014",
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listDevices",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-015",
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "registerDevice",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-016",
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "deleteDevice",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-017",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getDevice",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-018",
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "updateDeviceConfig",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-019",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getDeviceReadings",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-020",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "addDeviceReading",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-021",
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listDocuments",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-022",
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "createDocument",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-023",
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "deleteDocument",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-024",
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getDocument",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-025",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "updateDocument",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-026",
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listInvoices",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-027",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getInvoice",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-028",
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listMessages",
+      "expected": "Unsigned tokens (alg none) are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by JWT_SIGNATURE on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-029",
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": true,
+      "operationId": "listNotifications",
+      "expected": "Unsigned tokens (alg none) are rejected (401).",
+      "flawId": "JWT_NONE_NOTIFICATIONS",
+      "kind": "read"
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-030",
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listOrders",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-031",
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "createOrder",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-032",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "deleteOrder",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-033",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getOrder",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-034",
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "updateOrder",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-035",
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "createProduct",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-036",
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "deleteProduct",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-037",
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "updateProduct",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-038",
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getProfile",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-039",
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "listSessions",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-040",
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "createSupportTicket",
+      "expected": "Unsigned tokens (alg none) are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-041",
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getDiagnostics",
+      "expected": "Unsigned tokens (alg none) are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-042",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "getUser",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_NONE_ALG-043",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "operationId": "updateUser",
+      "expected": "Unsigned tokens (alg none) are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-001",
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getAccountSummary",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-002",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminCreateAnnouncement",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-003",
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminAuditLogs",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-004",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminStartBackup",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-005",
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminReports",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-006",
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminStats",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-007",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminListUsers",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-008",
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminCreateUser",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-009",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminDeleteUser",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-010",
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "adminChangeRole",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-011",
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getAnalyticsSummary",
+      "expected": "Expired tokens are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_INVALID_TOKEN on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-012",
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listAnnouncements",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-013",
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getCurrentUser",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-014",
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listDevices",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-015",
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "registerDevice",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-016",
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "deleteDevice",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-017",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getDevice",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-018",
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "updateDeviceConfig",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-019",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getDeviceReadings",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-020",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "addDeviceReading",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-021",
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listDocuments",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-022",
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "createDocument",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-023",
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "deleteDocument",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-024",
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getDocument",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-025",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "updateDocument",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-026",
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listInvoices",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-027",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getInvoice",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-028",
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listMessages",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-029",
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listNotifications",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-030",
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "listOrders",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-031",
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "createOrder",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-032",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "deleteOrder",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-033",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getOrder",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-034",
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "updateOrder",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-035",
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "createProduct",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-036",
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "deleteProduct",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-037",
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "updateProduct",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-038",
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getProfile",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-039",
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_EXPIRED",
+      "vulnerable": true,
+      "operationId": "listSessions",
+      "expected": "Expired tokens are rejected (401).",
+      "flawId": "JWT_EXPIRED_SESSIONS",
+      "kind": "read"
+    },
+    {
+      "id": "GT-JWT_EXPIRED-040",
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "createSupportTicket",
+      "expected": "Expired tokens are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-041",
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getDiagnostics",
+      "expected": "Expired tokens are rejected (401).",
+      "applicable": false,
+      "notes": "Excluded from scoring: subsumed by AUTH_MISSING on the same operation (root-cause rule)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-042",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "getUser",
+      "expected": "Expired tokens are rejected (401)."
+    },
+    {
+      "id": "GT-JWT_EXPIRED-043",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "operationId": "updateUser",
+      "expected": "Expired tokens are rejected (401)."
+    }
+  ]
+}
