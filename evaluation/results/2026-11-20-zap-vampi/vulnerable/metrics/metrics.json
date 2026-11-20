@@ -1,0 +1,378 @@
+{
+  "groundTruth": {
+    "benchmark": "VAmPI (erev0s/vampi)",
+    "build": "vulnerable mode (vulnerable=1)",
+    "totals": {
+      "cases": 35,
+      "scored": 35,
+      "excluded": 0,
+      "vulnerable": 3
+    }
+  },
+  "results": [
+    {
+      "name": "OWASP ZAP",
+      "tool": "OWASP ZAP",
+      "mode": "zap-api-scan",
+      "durationMs": 23394,
+      "requests": null,
+      "findings": 0,
+      "coverage": null,
+      "metrics": {
+        "confirmed": {
+          "AUTH_INVALID_TOKEN": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "AUTH_MISSING": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "BFLA": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 1,
+            "fn": 1,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.5,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "BOLA": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 1,
+            "fn": 2,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.3333333333333333,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "JWT_EXPIRED": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "JWT_NONE_ALG": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "JWT_SIGNATURE": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "OVERALL": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 32,
+            "fn": 3,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.9142857142857143,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "PRIMARY": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2,
+            "fn": 3,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.4,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "SECONDARY": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 30,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          }
+        },
+        "confirmed+potential": {
+          "AUTH_INVALID_TOKEN": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "AUTH_MISSING": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "BFLA": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 1,
+            "fn": 1,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.5,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "BOLA": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 1,
+            "fn": 2,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.3333333333333333,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "JWT_EXPIRED": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "JWT_NONE_ALG": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "JWT_SIGNATURE": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 6,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          },
+          "OVERALL": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 32,
+            "fn": 3,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.9142857142857143,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "PRIMARY": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 2,
+            "fn": 3,
+            "precision": null,
+            "recall": 0,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": 0,
+            "accuracy": 0.4,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)"
+            ]
+          },
+          "SECONDARY": {
+            "tp": 0,
+            "fp": 0,
+            "tn": 30,
+            "fn": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "falsePositiveRate": 0,
+            "detectionRate": null,
+            "accuracy": 1,
+            "notes": [
+              "precision undefined: no positive detections (TP + FP = 0)",
+              "recall undefined: no vulnerable cases (TP + FN = 0)"
+            ]
+          }
+        }
+      },
+      "perCase": {
+        "VAMPI-BOLA-01": "not reported",
+        "VAMPI-BOLA-02": "not reported",
+        "VAMPI-BOLA-03": "not reported",
+        "VAMPI-BFLA-01": "not reported",
+        "VAMPI-BFLA-02": "not reported",
+        "VAMPI-AUTH_MISSING-01": "not reported",
+        "VAMPI-AUTH_INVALID_TOKEN-01": "not reported",
+        "VAMPI-JWT_SIGNATURE-01": "not reported",
+        "VAMPI-JWT_NONE_ALG-01": "not reported",
+        "VAMPI-JWT_EXPIRED-01": "not reported",
+        "VAMPI-AUTH_MISSING-02": "not reported",
+        "VAMPI-AUTH_INVALID_TOKEN-02": "not reported",
+        "VAMPI-JWT_SIGNATURE-02": "not reported",
+        "VAMPI-JWT_NONE_ALG-02": "not reported",
+        "VAMPI-JWT_EXPIRED-02": "not reported",
+        "VAMPI-AUTH_MISSING-03": "not reported",
+        "VAMPI-AUTH_INVALID_TOKEN-03": "not reported",
+        "VAMPI-JWT_SIGNATURE-03": "not reported",
+        "VAMPI-JWT_NONE_ALG-03": "not reported",
+        "VAMPI-JWT_EXPIRED-03": "not reported",
+        "VAMPI-AUTH_MISSING-04": "not reported",
+        "VAMPI-AUTH_INVALID_TOKEN-04": "not reported",
+        "VAMPI-JWT_SIGNATURE-04": "not reported",
+        "VAMPI-JWT_NONE_ALG-04": "not reported",
+        "VAMPI-JWT_EXPIRED-04": "not reported",
+        "VAMPI-AUTH_MISSING-05": "not reported",
+        "VAMPI-AUTH_INVALID_TOKEN-05": "not reported",
+        "VAMPI-JWT_SIGNATURE-05": "not reported",
+        "VAMPI-JWT_NONE_ALG-05": "not reported",
+        "VAMPI-JWT_EXPIRED-05": "not reported",
+        "VAMPI-AUTH_MISSING-06": "not reported",
+        "VAMPI-AUTH_INVALID_TOKEN-06": "not reported",
+        "VAMPI-JWT_SIGNATURE-06": "not reported",
+        "VAMPI-JWT_NONE_ALG-06": "not reported",
+        "VAMPI-JWT_EXPIRED-06": "not reported"
+      }
+    }
+  ]
+}

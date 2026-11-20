@@ -17,7 +17,7 @@
 | Evaluation: metrics, comparison tables, charts, regression check | Implemented | unit tests |
 | Docker Compose (benchmark, patched build, VAmPI) | Implemented | built and health-checked locally |
 | GitHub Actions workflow | Implemented | validated locally; not yet run on GitHub |
-| OWASP ZAP comparison on test-api | **Executed** | `evaluation/results/2026-11-20-zap-test-api/` |
+| OWASP ZAP comparison on test-api and VAmPI | **Executed** | `evaluation/results/2026-11-20-zap-test-api/`, `…-zap-vampi/` |
 | **Role-aware detection engine** (scanner + status-only baseline) | **Not implemented** | design in `docs/ARCHITECTURE.md`; plug-in contract in `docs/FINDINGS-FORMAT.md` |
 | crAPI | Setup documented, not executed | `benchmarks/crapi/README.md` |
 
@@ -147,11 +147,12 @@ Precision = TP/(TP+FP), Recall = TP/(TP+FN), F1 = 2PR/(P+R), FPR = FP/(FP+TN). A
 (method, path template, category). Metrics are reported per category and for the BOLA+BFLA and auth/JWT
 groups, at a *confirmed* and a *confirmed+potential* threshold. Zero denominators are reported as undefined (`n/a`).
 
-### Executed result so far (E1)
+### Executed results so far (E1, E2)
 
 With its standard API scan and one authenticated user, OWASP ZAP 2.17.0 detected **0 of 20** known
 access-control vulnerabilities on the benchmark, with 0 false positives. Recall is 0.000, FPR is 0.000, and
-precision is undefined. Details, raw output and validity notes: `evaluation/results/2026-11-20-zap-test-api/`.
+precision is undefined. On VAmPI (E2), ZAP likewise reported no access-control finding: 0 of 3 detected in
+vulnerable mode, 0 false positives. Details, raw output and validity notes are in `evaluation/results/`.
 
 ## CI/CD
 

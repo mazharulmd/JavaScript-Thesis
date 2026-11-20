@@ -62,7 +62,7 @@ operation are excluded from scoring (12 cases on the vulnerable benchmark). See 
 | ID | Description | Status |
 |---|---|---|
 | E1 | OWASP ZAP 2.17.0 API scan on test-api (vulnerable + patched) | **Executed**: `results/2026-11-20-zap-test-api/` |
-| E2 | OWASP ZAP API scan on VAmPI (vulnerable + patched) | See `results/` (archived only if the run completed) |
+| E2 | OWASP ZAP API scan on VAmPI (vulnerable + patched) | **Executed**: `results/2026-11-20-zap-vampi/` (ReDoS operation excluded in vulnerable mode, see its README) |
 | E3 | Role-aware scanner (ownership-differential oracle) on test-api | Planned: needs the detection engine |
 | E4 | Status-code-only baseline on test-api, same request set as E3 | Planned: needs the detection engine |
 | E5 | E3/E4 on VAmPI | Planned |
