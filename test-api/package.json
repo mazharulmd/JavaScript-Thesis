@@ -1,0 +1,16 @@
+{
+  "name": "bac-test-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Intentionally vulnerable REST API (benchmark) with known BOLA, BFLA and authentication flaws next to correctly protected endpoints. FOR ISOLATED LOCAL TESTING ONLY.",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "seed:print": "node seeds/seed.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

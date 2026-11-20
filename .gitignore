@@ -1,0 +1,15 @@
+node_modules/
+.env
+*.log
+.DS_Store
+coverage/
+
+# Generated scan output (keep the folders, not the per-run files)
+reports/json/*
+reports/html/*
+!reports/json/.gitkeep
+!reports/html/.gitkeep
+
+# Scratch output of evaluation runs (validated runs are copied to evaluation/results/<run-id>/)
+evaluation/results/tmp/
+benchmarks/crapi/crAPI/
