@@ -82,3 +82,22 @@ export function metricsByCategory(cases, detectedKeys) {
 export function fmt(value) {
   return value === null || value === undefined ? 'n/a' : value.toFixed(3);
 }
+
+/** Category groups used in the thesis tables. */
+export const GROUPS = {
+  PRIMARY: ['BOLA', 'BFLA'],
+  SECONDARY: ['AUTH_MISSING', 'AUTH_INVALID_TOKEN', 'JWT_SIGNATURE', 'JWT_NONE_ALG', 'JWT_EXPIRED'],
+};
+
+/** Metrics per category, per group (PRIMARY = BOLA+BFLA, SECONDARY = auth/JWT) and overall. */
+export function metricsReport(cases, detectedKeys) {
+  const detected = [...detectedKeys];
+  const rows = metricsByCategory(cases, detected);
+  for (const [group, cats] of Object.entries(GROUPS)) {
+    const subset = cases.filter((c) => cats.includes(c.category));
+    if (!subset.length) continue;
+    const keys = detected.filter((k) => cats.some((cat) => k.endsWith(` ${cat}`)));
+    rows[group] = computeMetrics(confusionMatrix(subset, keys));
+  }
+  return rows;
+}

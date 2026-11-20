@@ -1,0 +1,967 @@
+{
+  "meta": {
+    "tool": "OWASP ZAP",
+    "version": "2.17.0",
+    "mode": "zap-api-scan",
+    "source": "evaluation/results/tmp/zap-secure/zap-report.json",
+    "generated": "Fri, 20 Nov 2026 18:56:20",
+    "durationMs": 30922
+  },
+  "findings": [],
+  "outOfScope": [
+    {
+      "alert": "Private IP Disclosure",
+      "pluginId": "2",
+      "cwe": 497,
+      "risk": "low",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/sessions",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "X-Content-Type-Options Header Missing",
+      "pluginId": "10021",
+      "cwe": 693,
+      "risk": "low",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/auth/me",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "X-Content-Type-Options Header Missing",
+      "pluginId": "10021",
+      "cwe": 693,
+      "risk": "low",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/profiles/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "X-Content-Type-Options Header Missing",
+      "pluginId": "10021",
+      "cwe": 693,
+      "risk": "low",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/users/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "X-Content-Type-Options Header Missing",
+      "pluginId": "10021",
+      "cwe": 693,
+      "risk": "low",
+      "method": "GET",
+      "uri": "http://localhost:3001/health",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "X-Content-Type-Options Header Missing",
+      "pluginId": "10021",
+      "cwe": 693,
+      "risk": "low",
+      "method": "PATCH",
+      "uri": "http://localhost:3001/api/users/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "DELETE",
+      "uri": "http://localhost:3001/api/admin/users/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "DELETE",
+      "uri": "http://localhost:3001/api/admin/users/2/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "DELETE",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "DELETE",
+      "uri": "http://localhost:3001/api/orders/1003/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "DELETE",
+      "uri": "http://localhost:3001/api/products/501",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "DELETE",
+      "uri": "http://localhost:3001/api/products/501/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/924293078530992935",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/6354954007000660612",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/accounts",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/accounts/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/accounts/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/accounts/2/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/accounts/2/4341529441867924430",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/accounts/3573546545145644694",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/1621077050873713751",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/actuator/health",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/stats",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/stats/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/users",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/users/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/users/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/users/2/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/users/2/1170758390107233308",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/admin/users/2490713098104627678",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/analytics",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/analytics/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/analytics/4509132996456173621",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/auth",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/auth/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/auth/8002049544136679757",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/devices/8657051918429940675",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/8016804755130556892",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/readings",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/readings/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/documents/1616737165397709703",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/documents/doc-2-private/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/invoices/3943324911171774637",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/invoices/7001",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/invoices/7001/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/orders/1003/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/orders/3085943475060998404",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/products/6050271800080277144",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/profiles",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/profiles/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/profiles/8833264916919581471",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/support",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/support/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/support/3876379273876805102",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/system",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/system/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/system/6478972190323581550",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/users",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/users/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "GET",
+      "uri": "http://localhost:3001/api/users/7066932248318735616",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PATCH",
+      "uri": "http://localhost:3001/api/documents/doc-2-private",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PATCH",
+      "uri": "http://localhost:3001/api/documents/doc-2-private",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PATCH",
+      "uri": "http://localhost:3001/api/documents/doc-2-private/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PATCH",
+      "uri": "http://localhost:3001/api/users/2",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/announcements",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/announcements/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/backups",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/backups/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/users",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/users/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/auth/login",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/auth/login",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/auth/login/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/devices",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/readings",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/readings",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/readings/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/documents",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/orders",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/products",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/products/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/support/tickets",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/computeMetadata/v1/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/latest/meta-data/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/metadata/instance",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/metadata/v1",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/opc/v1/instance/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/opc/v2/instance/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/openstack/latest/meta_data.json",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/admin/users/2/role",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/admin/users/2/role/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/devices/dev-002-a/config",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/orders/1003",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/orders/1003",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/orders/1003/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/products/501",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "A Client Error response code was returned by the server",
+      "pluginId": "100000",
+      "cwe": 388,
+      "risk": "info",
+      "method": "PUT",
+      "uri": "http://localhost:3001/api/products/501/",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "Authentication Request Identified",
+      "pluginId": "10111",
+      "cwe": -1,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/admin/users",
+      "reason": "CWE not access-control related"
+    },
+    {
+      "alert": "Authentication Request Identified",
+      "pluginId": "10111",
+      "cwe": -1,
+      "risk": "info",
+      "method": "POST",
+      "uri": "http://localhost:3001/api/auth/login",
+      "reason": "CWE not access-control related"
+    }
+  ]
+}
