@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "tool": "sample-fixture",
+    "version": "0.0.0",
+    "mode": "fixture",
+    "note": "SYNTHETIC TEST FIXTURE for the reporting module. Not a scan result.",
+    "target": "http://localhost:3000",
+    "spec": "test-api/openapi.yaml",
+    "scanId": "fixture-001",
+    "startedAt": "2026-11-20T10:00:00.000Z",
+    "finishedAt": "2026-11-20T10:00:02.500Z",
+    "durationMs": 2500,
+    "requests": 42
+  },
+  "findings": [
+    {
+      "id": "F-0001",
+      "category": "BOLA",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "resource": { "orderId": 1005 },
+      "attacker": { "account": "alice", "role": "user" },
+      "victim": { "account": "bob", "role": "user" },
+      "expected": "Only the owner or an administrator may read the order.",
+      "observed": "Response contains ownerId of another account.",
+      "timestamp": "2026-11-20T10:00:01.000Z",
+      "evidence": {
+        "notes": ["ownership field ownerId = 3 (owner), caller = 2"],
+        "exchanges": [
+          {
+            "label": "Request by non-owner",
+            "account": "alice",
+            "role": "user",
+            "request": { "method": "GET", "url": "http://localhost:3000/api/orders/1005", "headers": { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIn0.c2lnbmF0dXJlLXZhbHVl" } },
+            "response": { "status": 200, "headers": { "content-type": "application/json" }, "body": { "id": 1005, "ownerId": 3, "note": "<script>alert(1)</script>" } }
+          }
+        ]
+      }
+    },
+    {
+      "id": "F-0002",
+      "category": "BFLA",
+      "severity": "medium",
+      "status": "potential",
+      "confidence": 0.5,
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "attacker": { "account": "alice", "role": "user" },
+      "expected": "Only roles [admin] may invoke the function.",
+      "observed": "HTTP 200 with a different body than the privileged response.",
+      "evidence": { "request": { "method": "POST", "url": "http://localhost:3000/api/auth/login", "body": { "username": "alice", "password": "Alice#2026" } }, "response": { "status": 200, "body": { "token": "abc" } } }
+    }
+  ]
+}

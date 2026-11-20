@@ -1,0 +1,11 @@
+{
+  "name": "bac-scanner",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Role-aware Broken Access Control testing tool (reporting and findings-format modules; detection engine in development).",
+  "type": "module",
+  "bin": { "bac-scanner": "src/cli.js" },
+  "scripts": {
+    "report": "node src/cli.js report"
+  }
+}
