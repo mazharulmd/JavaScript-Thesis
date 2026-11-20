@@ -1,0 +1,330 @@
+{
+  "benchmark": "VAmPI (erev0s/vampi)",
+  "build": "patched mode (vulnerable=0)",
+  "labelledFrom": "VAmPI source code in the erev0s/vampi:latest image (api_views/*.py, models/*.py), read on 2026-11-20",
+  "scope": "Access-control categories only. Out of scope: SQL injection (GET /users/v1/{username}), mass assignment of admin=true at registration (OWASP API3), user/password enumeration, ReDoS, unauthenticated user listing (GET /users/v1 is public by design).",
+  "unit": "One case = (HTTP method, OpenAPI path template, category).",
+  "summary": {
+    "BOLA": {
+      "vulnerable": 0,
+      "secure": 3
+    },
+    "BFLA": {
+      "vulnerable": 1,
+      "secure": 1
+    },
+    "AUTH_MISSING": {
+      "vulnerable": 0,
+      "secure": 6
+    },
+    "AUTH_INVALID_TOKEN": {
+      "vulnerable": 0,
+      "secure": 6
+    },
+    "JWT_SIGNATURE": {
+      "vulnerable": 0,
+      "secure": 6
+    },
+    "JWT_NONE_ALG": {
+      "vulnerable": 0,
+      "secure": 6
+    },
+    "JWT_EXPIRED": {
+      "vulnerable": 0,
+      "secure": 6
+    }
+  },
+  "totals": {
+    "cases": 35,
+    "scored": 35,
+    "excluded": 0,
+    "vulnerable": 1
+  },
+  "cases": [
+    {
+      "id": "VAMPI-BOLA-01",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "BOLA",
+      "vulnerable": false,
+      "source": "api_views/books.py:get_by_title",
+      "notes": "vulnerable=1 looks the book up by title only; returns secret and owner (username) of any user. vulnerable=0 filters by the caller."
+    },
+    {
+      "id": "VAMPI-BOLA-02",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "BOLA",
+      "vulnerable": false,
+      "source": "api_views/users.py:update_password",
+      "notes": "vulnerable=1 changes the password of the user in the path. vulnerable=0 changes the caller's own password but still answers 204 (true negative with 2xx). No read-back endpoint exists, so the effect is not observable through the API."
+    },
+    {
+      "id": "VAMPI-BOLA-03",
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "BOLA",
+      "vulnerable": false,
+      "source": "api_views/users.py:update_email",
+      "notes": "Both modes update the CALLER's e-mail (token sub) and ignore the path username; returns 204. True negative with 2xx."
+    },
+    {
+      "id": "VAMPI-BFLA-01",
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "category": "BFLA",
+      "vulnerable": false,
+      "source": "api_views/users.py:delete_user",
+      "notes": "Admin check enforced in both modes (non-admins get 401)."
+    },
+    {
+      "id": "VAMPI-BFLA-02",
+      "method": "GET",
+      "path": "/users/v1/_debug",
+      "category": "BFLA",
+      "vulnerable": true,
+      "source": "api_views/users.py:debug",
+      "notes": "Debug function returns all users with passwords and admin flags without authentication, in BOTH modes (\"bad practice\" kept by VAmPI). Intended policy (admin-only) is not in the VAmPI spec and must be supplied by configuration."
+    },
+    {
+      "id": "VAMPI-AUTH_MISSING-01",
+      "method": "GET",
+      "path": "/me",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_INVALID_TOKEN-01",
+      "method": "GET",
+      "path": "/me",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_SIGNATURE-01",
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_NONE_ALG-01",
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_EXPIRED-01",
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_MISSING-02",
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_INVALID_TOKEN-02",
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_SIGNATURE-02",
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_NONE_ALG-02",
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_EXPIRED-02",
+      "method": "DELETE",
+      "path": "/users/v1/{username}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_MISSING-03",
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_INVALID_TOKEN-03",
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_SIGNATURE-03",
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_NONE_ALG-03",
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_EXPIRED-03",
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_MISSING-04",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_INVALID_TOKEN-04",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_SIGNATURE-04",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_NONE_ALG-04",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_EXPIRED-04",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_MISSING-05",
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_INVALID_TOKEN-05",
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_SIGNATURE-05",
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_NONE_ALG-05",
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_EXPIRED-05",
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_MISSING-06",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "AUTH_MISSING",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-AUTH_INVALID_TOKEN-06",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "AUTH_INVALID_TOKEN",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_SIGNATURE-06",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_SIGNATURE",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_NONE_ALG-06",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_NONE_ALG",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    },
+    {
+      "id": "VAMPI-JWT_EXPIRED-06",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_EXPIRED",
+      "vulnerable": false,
+      "source": "connexion x-bearerInfoFunc -> models/user_model.py:decode_auth_token (PyJWT, HS256 only, exp enforced)"
+    }
+  ]
+}

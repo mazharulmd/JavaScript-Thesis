@@ -67,3 +67,14 @@ test('chart refuses more than three series (validated palette slots)', () => {
   assert.match(groupedBarChart({ title: 't', groups: ['a', 'b', 'c', 'd'], series: [s] }), /^<svg/);
   assert.throws(() => groupedBarChart({ title: 't', groups: ['a'], series: [s, s, s, s] }));
 });
+
+test('regression check flags missed vulnerabilities and false positives', async () => {
+  const { checkRegression } = await import('../../evaluation/check-regression.js');
+  const vulnerable = gt.cases.filter((c) => c.vulnerable && ['BOLA', 'BFLA'].includes(c.category));
+  const perfect = { meta: { tool: 't' }, findings: vulnerable.map((c, i) => ({ id: `f${i}`, category: c.category, method: c.method, path: c.path, status: 'confirmed', severity: 'high' })) };
+  assert.deepEqual(checkRegression(gt, perfect, { scope: 'PRIMARY' }).problems, []);
+  const missing = { ...perfect, findings: perfect.findings.slice(1) };
+  assert.equal(checkRegression(gt, missing, { scope: 'PRIMARY' }).problems.length, 1);
+  const extra = { ...perfect, findings: [...perfect.findings, { id: 'x', category: 'BOLA', method: 'GET', path: '/api/profiles/{userId}', status: 'confirmed', severity: 'high' }] };
+  assert.match(checkRegression(gt, extra, { scope: 'PRIMARY' }).problems[0], /false positives 1/);
+});
