@@ -8,13 +8,13 @@ in this repository. It also lists the work that remains for the author. It is a 
 | Thesis chapter | Evidence in the repository | Author's remaining work |
 |---|---|---|
 | 1 Introduction | Proposal (`Thesis-Topic-Proposal - V2.docx`), README | Write from the proposal; add references (OWASP API Security Top 10 2023) |
-| 2–4 Theory: REST and OpenAPI, authentication and authorization, BOLA/BFLA, JWT, DAST tools and existing approaches | — | Literature review: OWASP API Top 10, ZAP, Burp Autorize/AuthMatrix, RESTler, research on access-control testing. Every reference must be checked against the original source |
+| 2–4 Theory: REST and OpenAPI, authentication and authorization, BOLA/BFLA, JWT, DAST tools and existing approaches | `docs/references.bib`: 15 registry-verified starter references plus 5 web sources to confirm | Literature review: OWASP API Top 10, ZAP, Burp Autorize/AuthMatrix, RESTler, research on access-control testing. Every reference must be checked against the original source |
 | 5 Purpose, objective, RQs | Proposal, README | Keep the RQs exactly as approved |
 | 6 Method: DSR | `docs/ARCHITECTURE.md`, `docs/DECISIONS.md` | Describe the DSR cycle (problem → design → build → evaluate) with methodology references |
 | 6.x Benchmark design | `test-api/`, `test-api/src/flaws.js`, `openapi.yaml`, `ground-truth.json`, D2–D7 | Explain flaw selection, the true-negative patterns, the patched build and the root-cause rule |
 | 6.x Tool design | `docs/ARCHITECTURE.md` ("Intended design"), `docs/FINDINGS-FORMAT.md` | Implement the detection engine and describe it (see below) |
 | 6.x Evaluation design | `evaluation/README.md`, `evaluation/metrics.js` | Metrics, thresholds, datasets, experiment list, threats to validity |
-| 7 Results | `evaluation/results/*` (E1 executed) | Run E3–E7; report raw counts and ratios; use `comparison.md` tables and `chart-*.svg` figures |
+| 7 Results | `evaluation/results/*` (E1 and E2 executed) | Run E3–E7; report raw counts and ratios; use `comparison.md` tables and `chart-*.svg` figures |
 | 8 Discussion | Experiment READMEs (observations, validity notes) | Answer RQ1–RQ3; discuss limitations and threats to validity |
 | 9 Conclusion | — | Contributions, future work (e.g. crAPI, BOPLA/mass assignment, GraphQL) |
 | Appendices | HTML/JSON reports, ground-truth tables, CI workflow | Select representative reports |

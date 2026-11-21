@@ -49,7 +49,7 @@ flowchart LR
 
 Details: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) · decisions: [`docs/DECISIONS.md`](docs/DECISIONS.md) ·
 findings contract: [`docs/FINDINGS-FORMAT.md`](docs/FINDINGS-FORMAT.md) · evaluation: [`evaluation/README.md`](evaluation/README.md) ·
-thesis mapping: [`docs/THESIS-GUIDE.md`](docs/THESIS-GUIDE.md)
+thesis mapping: [`docs/THESIS-GUIDE.md`](docs/THESIS-GUIDE.md) · starter bibliography (verified DOIs): [`docs/references.bib`](docs/references.bib)
 
 ## Repository structure
 
