@@ -81,14 +81,14 @@ test('writeReports writes redacted JSON (with summary) and HTML', () => {
   assert.ok(!readFileSync(json, 'utf8').includes('Alice#2026'));
 });
 
-test('CLI exit codes: 1 when the gate trips, 0 when it does not, 2 on bad input', () => {
+test('CLI exit codes: 1 when the gate trips, 0 when it does not, 2 on bad input', async () => {
   const dir = mkdtempSync(join(tmpdir(), 'bac-cli-'));
-  const quiet = (fn) => { const l = console.log; const e = console.error; console.log = () => {}; console.error = () => {}; try { return fn(); } finally { console.log = l; console.error = e; } };
+  const quiet = async (fn) => { const l = console.log; const e = console.error; console.log = () => {}; console.error = () => {}; try { return await fn(); } finally { console.log = l; console.error = e; } };
   const input = fixturePath.pathname;
-  assert.equal(quiet(() => main(['report', '--input', input, '--out-dir', dir, '--fail-on', 'high'])), 1);
-  assert.equal(quiet(() => main(['report', '--input', input, '--out-dir', dir, '--fail-on', 'critical'])), 0);
-  assert.equal(quiet(() => main(['validate', '--input', input])), 0);
-  assert.equal(quiet(() => main(['report', '--input', '/nonexistent.json'])), 2);
-  assert.equal(quiet(() => main(['report'])), 2);
-  assert.equal(quiet(() => main(['bogus'])), 2);
+  assert.equal(await quiet(() => main(['report', '--input', input, '--out-dir', dir, '--fail-on', 'high'])), 1);
+  assert.equal(await quiet(() => main(['report', '--input', input, '--out-dir', dir, '--fail-on', 'critical'])), 0);
+  assert.equal(await quiet(() => main(['validate', '--input', input])), 0);
+  assert.equal(await quiet(() => main(['report', '--input', '/nonexistent.json'])), 2);
+  assert.equal(await quiet(() => main(['report'])), 2);
+  assert.equal(await quiet(() => main(['bogus'])), 2);
 });

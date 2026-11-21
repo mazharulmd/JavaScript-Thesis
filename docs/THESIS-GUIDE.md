@@ -21,11 +21,14 @@ in this repository. It also lists the work that remains for the author. It is a 
 
 ## Remaining implementation: the detection engine
 
-The pipeline around the engine is complete and tested. The engine must:
+The pipeline around the engine is complete and tested. So is the groundwork the engine builds on:
+`parser/openapi.js` (operation inventory), `config/` (accounts, roles, access rules, host allowlist,
+policy resolution), `authentication/session.js` (login and identities), `utils/http.js` (timeouts,
+throttling, request budget and counter for RQ3) and `utils/sample.js` (valid request bodies).
+`preflight` exercises all of these. The engine must:
 
-1. Read the OpenAPI document (`test-api/openapi.yaml`, `benchmarks/vampi/openapi3.yml`) and a YAML/JSON
-   configuration with the accounts, roles and, where the spec lacks `x-access-control`, access rules.
-2. Log in each account and keep its token.
+1. Reuse the parser, config, policy and session modules (inputs and login are already handled).
+2. Discover which objects belong to which account (e.g. from list endpoints and the ownership fields).
 3. Generate cross-user tests (for each object owned by user B, request it as user A) and cross-role
    tests (for each restricted function, invoke it as a role that is not allowed). Use the same request set for
    both oracles.

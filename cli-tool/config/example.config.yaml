@@ -1,0 +1,45 @@
+# Scanner configuration for the local benchmark API (test-api).
+# All credentials below are SYNTHETIC, benchmark-only values (see test-api/src/data/seed-data.js).
+# For any other system, use passwordEnv / tokenEnv instead of inline secrets.
+
+target: http://localhost:3000
+
+# Safety: the scanner refuses every host not listed here.
+allowedHosts: [localhost, 127.0.0.1, "::1"]
+
+auth:
+  header: Authorization
+  scheme: Bearer
+  login:
+    method: POST
+    path: /api/auth/login
+    body: { username: "{{username}}", password: "{{password}}" }
+    tokenPath: token          # where the token is in the login response
+    identityPath: user.id     # the account's identity (else: the JWT "sub" claim)
+
+roles:
+  admin: { level: 100, bypassOwnership: true }
+  user:  { level: 10 }
+  guest: { level: 1 }
+
+accounts:
+  - { name: admin, role: admin, username: admin, password: "Admin#2026" }
+  - { name: alice, role: user,  username: alice, password: "Alice#2026" }
+  - { name: bob,   role: user,  username: bob,   password: "Bob#2026" }
+  - { name: guest, role: guest, username: guest, password: "Guest#2026" }
+
+ownership:
+  # Response fields that carry the owner's identity (searched in nested JSON as well).
+  fields: [ownerId, userId, accountId, createdBy, owner]
+  # Objects matching one of these are public by design and are not ownership violations.
+  publicIndicators:
+    - { field: visibility, equals: public }
+
+# The benchmark spec documents its policy in x-access-control, so no rules are needed here.
+# For APIs without annotations, list the intended policy (see benchmarks/vampi/vampi.config.yaml).
+accessRules: []
+
+scan:
+  requestTimeoutMs: 5000
+  delayMs: 0          # throttling between requests
+  maxRequests: 5000   # hard budget per run

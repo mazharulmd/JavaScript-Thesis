@@ -31,12 +31,13 @@ flowchart LR
 | Component | Location | Responsibility | Status |
 |---|---|---|---|
 | Benchmark API | `test-api/` | Express API with known BOLA, BFLA and auth flaws next to protected equivalents; flaw toggle `FLAWS`; deterministic seed; reset endpoint | Implemented, tested |
-| OpenAPI spec | `test-api/openapi.yaml` | 44 operations with the *intended* policy in `x-access-control` | Implemented, tested for consistency |
+| OpenAPI spec | `test-api/openapi.yaml` | 47 operations with the *intended* policy in `x-access-control` | Implemented, tested for consistency |
 | Ground truth | `test-api/ground-truth*.json`, `evaluation/build-ground-truth.js` | Labelled cases (method, path, category) | Implemented, tested |
 | Findings format | `cli-tool/src/reporting/findings-format.js`, `docs/FINDINGS-FORMAT.md` | Contract between detectors and the pipeline | Implemented, tested |
 | Reporting | `cli-tool/src/reporting/` | Validation, redaction, JSON + standalone HTML, severity gate | Implemented, tested |
-| CLI | `cli-tool/src/cli.js` | `report`, `validate`; exit codes 0/1/2 | Implemented, tested |
-| Detection engine | `cli-tool/src/{parser,authentication,engine,analyzers,detectors}` | OpenAPI parsing, multi-account auth, cross-user/cross-role tests, ownership-differential and status-only oracles | **Not implemented** |
+| CLI | `cli-tool/src/cli.js` | `report`, `validate`, `preflight`; exit codes 0/1/2/3 | Implemented, tested |
+| Scanner foundation | `cli-tool/src/{parser,config,authentication,utils}`, `preflight.js` | OpenAPI 3 parser ($ref, parameters, bodies, security, `x-access-control`); config loading and validation; host allowlist; policy resolution (config rules override the spec); sample request bodies; rate-limited HTTP client with request budget and counter; multi-account login with identity extraction | Implemented, tested (incl. against VAmPI) |
+| Detection engine | `cli-tool/src/{engine,analyzers,detectors}` | Cross-user/cross-role test generation, authentication checks, ownership-differential and status-only oracles | **Not implemented** |
 | Evaluation | `evaluation/` | Metrics, comparison, charts, regression check, ZAP adapter | Implemented, tested |
 | ZAP integration | `benchmarks/zap/run-zap.sh` | Reproducible ZAP API scan with bearer authentication | Implemented, executed |
 | External benchmarks | `benchmarks/vampi`, `benchmarks/crapi` | Setup, accounts, ground truth / configuration notes | VAmPI ground truth done; crAPI documented only |

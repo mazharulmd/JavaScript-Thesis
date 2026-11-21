@@ -18,7 +18,8 @@
 | Docker Compose (benchmark, patched build, VAmPI) | Implemented | built and health-checked locally |
 | GitHub Actions workflow | Implemented | validated locally; not yet run on GitHub |
 | OWASP ZAP comparison on test-api and VAmPI | **Executed** | `evaluation/results/2026-11-20-zap-test-api/`, `…-zap-vampi/` |
-| **Role-aware detection engine** (scanner + status-only baseline) | **Not implemented** | design in `docs/ARCHITECTURE.md`; plug-in contract in `docs/FINDINGS-FORMAT.md` |
+| Scanner foundation: OpenAPI parser, config validation, host allowlist, policy matrix, multi-account login, `preflight` command | Implemented | unit + integration tests; preflight run on test-api and VAmPI |
+| **Role-aware detection engine** (test generation + scanner oracle + status-only oracle) | **Not implemented** | design in `docs/ARCHITECTURE.md`; plug-in contract in `docs/FINDINGS-FORMAT.md` |
 | crAPI | Setup documented, not executed | `benchmarks/crapi/README.md` |
 
 Only executed experiments have results. See `evaluation/README.md` for the list of planned and executed experiments.
@@ -55,8 +56,10 @@ thesis mapping: [`docs/THESIS-GUIDE.md`](docs/THESIS-GUIDE.md)
 ```
 ├── Thesis-Topic-Proposal - V2.docx, Thesis Template/   # unchanged thesis materials
 ├── test-api/                 # benchmark API (Express), openapi.yaml, ground-truth*.json, Dockerfile, seeds/
+├── cli-tool/config/          # example.config.yaml (benchmark accounts and roles)
 ├── cli-tool/src/
-│   ├── cli.js                # `report` / `validate` commands with CI exit codes
+│   ├── cli.js                # `report` / `validate` / `preflight` commands with CI exit codes
+│   ├── parser/ config/ authentication/ utils/   # OpenAPI parser, config + policy, login sessions, HTTP client
 │   └── reporting/            # findings format, redaction, JSON + standalone HTML reports
 ├── evaluation/               # metrics, compare, charts, regression check, ground-truth builder, adapters/, results/
 ├── benchmarks/               # zap/ (runner), vampi/ (spec, ground truth), crapi/ (setup notes)
@@ -105,6 +108,17 @@ npm run seed:print
 
 `POST /__benchmark/reset` restores the seed (benchmark mode only; not part of the spec).
 
+### Preflight (configuration check)
+
+```bash
+node cli-tool/src/cli.js preflight --spec test-api/openapi.yaml --config cli-tool/config/example.config.yaml
+```
+
+The command validates the spec and the config, refuses hosts outside `allowedHosts`, and logs in every account
+(sending only the login requests). It then prints the operation inventory, the account identities and the intended
+role/ownership policy per operation. Exit codes: `0` ready, `2` invalid input, `3` target unreachable or login failed.
+The VAmPI configuration is `benchmarks/vampi/vampi.config.yaml`.
+
 ### Reports and CI gate
 
 ```bash
@@ -128,7 +142,7 @@ node evaluation/compare.js --ground-truth test-api/ground-truth.json --run "OWAS
 ## Benchmark design
 
 * **Resources:** user profiles, orders, invoices (nested ownership), documents (private/public), IoT
-  devices and sensor readings, products, and admin functions. The spec has 44 operations.
+  devices and sensor readings, products, and admin functions. The spec has 47 operations.
 * **20 injected flaws:** 8 BOLA, 6 BFLA, 2 missing authentication, 1 malformed token accepted,
   1 unverified JWT signature, 1 `alg: none` accepted, 1 expired token accepted (`test-api/src/flaws.js`).
 * **True negatives with 2xx status:**
