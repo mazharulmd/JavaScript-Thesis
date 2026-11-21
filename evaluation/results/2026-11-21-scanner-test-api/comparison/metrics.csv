@@ -1,0 +1,61 @@
+run,threshold,scope,tp,fp,tn,fn,precision,recall,f1,fpr
+Role-aware,confirmed,PRIMARY,14,0,17,0,1,1,1,0
+Role-aware,confirmed,BOLA,8,0,8,0,1,1,1,0
+Role-aware,confirmed,BFLA,6,0,9,0,1,1,1,0
+Role-aware,confirmed,SECONDARY,6,0,197,0,1,1,1,0
+Role-aware,confirmed,AUTH_MISSING,2,0,41,0,1,1,1,0
+Role-aware,confirmed,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+Role-aware,confirmed,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+Role-aware,confirmed,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+Role-aware,confirmed,JWT_EXPIRED,1,0,39,0,1,1,1,0
+Role-aware,confirmed,OVERALL,20,0,214,0,1,1,1,0
+Role-aware,confirmed+potential,PRIMARY,14,0,17,0,1,1,1,0
+Role-aware,confirmed+potential,BOLA,8,0,8,0,1,1,1,0
+Role-aware,confirmed+potential,BFLA,6,0,9,0,1,1,1,0
+Role-aware,confirmed+potential,SECONDARY,6,0,197,0,1,1,1,0
+Role-aware,confirmed+potential,AUTH_MISSING,2,0,41,0,1,1,1,0
+Role-aware,confirmed+potential,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+Role-aware,confirmed+potential,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+Role-aware,confirmed+potential,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+Role-aware,confirmed+potential,JWT_EXPIRED,1,0,39,0,1,1,1,0
+Role-aware,confirmed+potential,OVERALL,20,0,214,0,1,1,1,0
+Status-only,confirmed,PRIMARY,14,6,11,0,0.7,1,0.8235294117647058,0.35294117647058826
+Status-only,confirmed,BOLA,8,4,4,0,0.6666666666666666,1,0.8,0.5
+Status-only,confirmed,BFLA,6,2,7,0,0.75,1,0.8571428571428571,0.2222222222222222
+Status-only,confirmed,SECONDARY,6,12,197,0,0.3333333333333333,1,0.5,0.05741626794258373
+Status-only,confirmed,AUTH_MISSING,2,0,41,0,1,1,1,0
+Status-only,confirmed,AUTH_INVALID_TOKEN,1,2,40,0,0.3333333333333333,1,0.5,0.047619047619047616
+Status-only,confirmed,JWT_SIGNATURE,1,3,39,0,0.25,1,0.4,0.07142857142857142
+Status-only,confirmed,JWT_NONE_ALG,1,4,38,0,0.2,1,0.33333333333333337,0.09523809523809523
+Status-only,confirmed,JWT_EXPIRED,1,3,39,0,0.25,1,0.4,0.07142857142857142
+Status-only,confirmed,OVERALL,20,18,208,0,0.5263157894736842,1,0.6896551724137931,0.07964601769911504
+Status-only,confirmed+potential,PRIMARY,14,6,11,0,0.7,1,0.8235294117647058,0.35294117647058826
+Status-only,confirmed+potential,BOLA,8,4,4,0,0.6666666666666666,1,0.8,0.5
+Status-only,confirmed+potential,BFLA,6,2,7,0,0.75,1,0.8571428571428571,0.2222222222222222
+Status-only,confirmed+potential,SECONDARY,6,12,197,0,0.3333333333333333,1,0.5,0.05741626794258373
+Status-only,confirmed+potential,AUTH_MISSING,2,0,41,0,1,1,1,0
+Status-only,confirmed+potential,AUTH_INVALID_TOKEN,1,2,40,0,0.3333333333333333,1,0.5,0.047619047619047616
+Status-only,confirmed+potential,JWT_SIGNATURE,1,3,39,0,0.25,1,0.4,0.07142857142857142
+Status-only,confirmed+potential,JWT_NONE_ALG,1,4,38,0,0.2,1,0.33333333333333337,0.09523809523809523
+Status-only,confirmed+potential,JWT_EXPIRED,1,3,39,0,0.25,1,0.4,0.07142857142857142
+Status-only,confirmed+potential,OVERALL,20,18,208,0,0.5263157894736842,1,0.6896551724137931,0.07964601769911504
+OWASP ZAP,confirmed,PRIMARY,0,0,17,14,,0,,0
+OWASP ZAP,confirmed,BOLA,0,0,8,8,,0,,0
+OWASP ZAP,confirmed,BFLA,0,0,9,6,,0,,0
+OWASP ZAP,confirmed,SECONDARY,0,0,197,6,,0,,0
+OWASP ZAP,confirmed,AUTH_MISSING,0,0,41,2,,0,,0
+OWASP ZAP,confirmed,AUTH_INVALID_TOKEN,0,0,40,1,,0,,0
+OWASP ZAP,confirmed,JWT_SIGNATURE,0,0,39,1,,0,,0
+OWASP ZAP,confirmed,JWT_NONE_ALG,0,0,38,1,,0,,0
+OWASP ZAP,confirmed,JWT_EXPIRED,0,0,39,1,,0,,0
+OWASP ZAP,confirmed,OVERALL,0,0,214,20,,0,,0
+OWASP ZAP,confirmed+potential,PRIMARY,0,0,17,14,,0,,0
+OWASP ZAP,confirmed+potential,BOLA,0,0,8,8,,0,,0
+OWASP ZAP,confirmed+potential,BFLA,0,0,9,6,,0,,0
+OWASP ZAP,confirmed+potential,SECONDARY,0,0,197,6,,0,,0
+OWASP ZAP,confirmed+potential,AUTH_MISSING,0,0,41,2,,0,,0
+OWASP ZAP,confirmed+potential,AUTH_INVALID_TOKEN,0,0,40,1,,0,,0
+OWASP ZAP,confirmed+potential,JWT_SIGNATURE,0,0,39,1,,0,,0
+OWASP ZAP,confirmed+potential,JWT_NONE_ALG,0,0,38,1,,0,,0
+OWASP ZAP,confirmed+potential,JWT_EXPIRED,0,0,39,1,,0,,0
+OWASP ZAP,confirmed+potential,OVERALL,0,0,214,20,,0,,0

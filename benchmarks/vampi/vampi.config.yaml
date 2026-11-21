@@ -6,6 +6,7 @@ allowedHosts: [localhost, 127.0.0.1]
 auth:
   header: Authorization
   scheme: Bearer
+  jwtSecretEnv: VAMPI_JWT_SECRET
   login:
     method: POST
     path: /users/v1/login
@@ -23,7 +24,7 @@ accounts:
   - { name: admin, role: admin, username: admin, password: pass1 }
 
 ownership:
-  fields: [owner, username]
+  fields: [owner, user, username]
 
 # VAmPI's spec has no access-control annotations: the intended policy is stated here
 # (derived from benchmarks/vampi/README.md).

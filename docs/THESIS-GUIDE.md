@@ -14,7 +14,7 @@ in this repository. It also lists the work that remains for the author. It is a 
 | 6.x Benchmark design | `test-api/`, `test-api/src/flaws.js`, `openapi.yaml`, `ground-truth.json`, D2–D7 | Explain flaw selection, the true-negative patterns, the patched build and the root-cause rule |
 | 6.x Tool design | `docs/ARCHITECTURE.md` ("Intended design"), `docs/FINDINGS-FORMAT.md` | Implement the detection engine and describe it (see below) |
 | 6.x Evaluation design | `evaluation/README.md`, `evaluation/metrics.js` | Metrics, thresholds, datasets, experiment list, threats to validity |
-| 7 Results | `evaluation/results/*` (E1 and E2 executed) | Run E3–E7; report raw counts and ratios; use `comparison.md` tables and `chart-*.svg` figures |
+| 7 Results | `evaluation/results/*` (E1–E5 and RQ3 timing executed) | Report raw counts and ratios from `comparison.md`; crAPI (E8) still optional; add the GitHub Actions run time |
 | 8 Discussion | Experiment READMEs (observations, validity notes) | Answer RQ1–RQ3; discuss limitations and threats to validity |
 | 9 Conclusion | — | Contributions, future work (e.g. crAPI, BOPLA/mass assignment, GraphQL) |
 | Appendices | HTML/JSON reports, ground-truth tables, CI workflow | Select representative reports |

@@ -1,0 +1,1710 @@
+{
+  "meta": {
+    "formatVersion": "1.0",
+    "tool": "bac-scanner",
+    "version": "1.0.0",
+    "mode": "ownership-differential",
+    "endpointsTested": 43,
+    "target": "http://localhost:3001",
+    "spec": "test-api/openapi.yaml",
+    "scanId": "2026-11-21T09-44-16-300Z",
+    "startedAt": "2026-11-21T09:44:16.300Z",
+    "finishedAt": "2026-11-21T09:44:17.443Z",
+    "durationMs": 1142,
+    "requests": 349
+  },
+  "findings": [],
+  "tests": [
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_MISSING",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    }
+  ],
+  "summary": {
+    "totalFindings": 0,
+    "byStatus": {
+      "confirmed": 0,
+      "potential": 0,
+      "inconclusive": 0
+    },
+    "bySeverity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "byCategory": {
+      "BOLA": 0,
+      "BFLA": 0,
+      "AUTH_MISSING": 0,
+      "AUTH_INVALID_TOKEN": 0,
+      "JWT_SIGNATURE": 0,
+      "JWT_NONE_ALG": 0,
+      "JWT_EXPIRED": 0
+    },
+    "confirmedBySeverity": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "endpointsTested": 43,
+    "totalRequests": 349,
+    "testsExecuted": 276,
+    "durationMs": 1142
+  }
+}

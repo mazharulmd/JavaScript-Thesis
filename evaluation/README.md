@@ -63,11 +63,11 @@ operation are excluded from scoring (12 cases on the vulnerable benchmark). See 
 |---|---|---|
 | E1 | OWASP ZAP 2.17.0 API scan on test-api (vulnerable + patched) | **Executed**: `results/2026-11-20-zap-test-api/` |
 | E2 | OWASP ZAP API scan on VAmPI (vulnerable + patched) | **Executed**: `results/2026-11-20-zap-vampi/` (ReDoS operation excluded in vulnerable mode, see its README) |
-| E3 | Role-aware scanner (ownership-differential oracle) on test-api | Planned: needs the detection engine |
-| E4 | Status-code-only baseline on test-api, same request set as E3 | Planned: needs the detection engine |
-| E5 | E3/E4 on VAmPI | Planned |
+| E3 | Role-aware scanner (ownership-differential oracle) on test-api | **Executed**: `results/2026-11-21-scanner-test-api/` |
+| E4 | Status-code-only baseline on test-api, same request set as E3 | **Executed**: `results/2026-11-21-scanner-test-api/` |
+| E5 | E3/E4 on VAmPI | **Executed**: `results/2026-11-21-scanner-vampi/` |
 | E6 | Ablation: scanner without `x-access-control` annotations | Planned (recommended) |
-| E7 | RQ3: repeated runs (n ≥ 5) for time and request counts; CI run time on GitHub Actions | Planned |
+| E7 | RQ3: repeated runs (n ≥ 5) for time and request counts; CI run time on GitHub Actions | **Partly executed**: 5-run timing in `results/2026-11-21-scanner-test-api/rq3-timing.csv`; GitHub Actions run still pending |
 | E8 | crAPI | Planned; requires manual account and vehicle preparation |
 
 Only experiments marked **Executed** have results. Nothing in this repository reports numbers for planned experiments.

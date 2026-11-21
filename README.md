@@ -19,7 +19,8 @@
 | GitHub Actions workflow | Implemented | validated locally; not yet run on GitHub |
 | OWASP ZAP comparison on test-api and VAmPI | **Executed** | `evaluation/results/2026-11-20-zap-test-api/`, `…-zap-vampi/` |
 | Scanner foundation: OpenAPI parser, config validation, host allowlist, policy matrix, multi-account login, `preflight` command | Implemented | unit + integration tests; preflight run on test-api and VAmPI |
-| **Role-aware detection engine** (test generation + scanner oracle + status-only oracle) | **Not implemented** | design in `docs/ARCHITECTURE.md`; plug-in contract in `docs/FINDINGS-FORMAT.md` |
+| Role-aware detection engine (test generation + ownership-differential oracle + status-only oracle) | Implemented, tested | `cli-tool/src/{engine,analyzers,detectors}`; `scan` command; executed E3–E5 |
+| Scanner experiments (E3 role-aware, E4 status-only, E5 VAmPI, RQ3 timing) | **Executed** | `evaluation/results/2026-11-21-scanner-test-api/`, `…-scanner-vampi/` |
 | crAPI | Setup documented, not executed | `benchmarks/crapi/README.md` |
 
 Only executed experiments have results. See `evaluation/README.md` for the list of planned and executed experiments.
@@ -161,12 +162,27 @@ Precision = TP/(TP+FP), Recall = TP/(TP+FN), F1 = 2PR/(P+R), FPR = FP/(FP+TN). A
 (method, path template, category). Metrics are reported per category and for the BOLA+BFLA and auth/JWT
 groups, at a *confirmed* and a *confirmed+potential* threshold. Zero denominators are reported as undefined (`n/a`).
 
-### Executed results so far (E1, E2)
+### Executed results so far (E1–E5)
 
-With its standard API scan and one authenticated user, OWASP ZAP 2.17.0 detected **0 of 20** known
-access-control vulnerabilities on the benchmark, with 0 false positives. Recall is 0.000, FPR is 0.000, and
-precision is undefined. On VAmPI (E2), ZAP likewise reported no access-control finding: 0 of 3 detected in
-vulnerable mode, 0 false positives. Details, raw output and validity notes are in `evaluation/results/`.
+On the benchmark (vulnerable build), the three detection approaches compare as follows (confirmed threshold,
+234 scored cases, 20 vulnerable):
+
+| Approach | Precision | Recall | F1 | FPR | Detected / 20 |
+|---|---:|---:|---:|---:|---:|
+| Role-aware (ownership-differential) | 1.000 | 1.000 | 1.000 | 0.000 | 20 |
+| Status-code-only (same requests) | 0.526 | 1.000 | 0.690 | 0.080 | 20 |
+| OWASP ZAP 2.17.0 | n/a | 0.000 | n/a | 0.000 | 0 |
+
+The role-aware oracle and the status-only baseline send the **same** 362 requests; the only difference is the
+decision rule. Status-only matches the role-aware recall but raises 18 false positives on the benchmark's
+legitimate 2xx responses (public documents, soft denials, role-filtered views, …), which the
+ownership-differential oracle rejects. OWASP ZAP's standard API scan detects none of the access-control flaws.
+
+On VAmPI (E5) the role-aware oracle keeps precision 1.000 at recall 0.667: it misses one blind cross-user
+password change that answers 204 with no readable effect (a genuine black-box limitation). A full run takes
+~1.0 s and 362 requests on the benchmark (RQ3). Raw findings, comparison tables, charts and validity notes are
+in `evaluation/results/2026-11-21-scanner-test-api/` and `…-scanner-vampi/`. **The benchmark design, the
+ground truth and ZAP's configuration were all fixed before the scanner was run.**
 
 ## CI/CD
 
@@ -187,10 +203,12 @@ No third-party systems are tested and no personal data is used.
 
 ## Limitations
 
-* The detection engine (scanner and status-only baseline) is not yet implemented, so RQ1, the scanner side of
-  RQ2, and RQ3 have no results yet.
-* The benchmark and the tool are designed by the same author. The mitigations are the external benchmarks,
-  the patched build and a ground truth fixed before any tool run.
-* The benchmark spec carries policy annotations that real APIs usually lack. An ablation is planned.
+* The benchmark and the tool are designed by the same author. The mitigations are the external benchmark
+  (VAmPI), the patched build, and a ground truth fixed before any tool run.
+* The benchmark spec carries `x-access-control` policy annotations that real APIs usually lack; for VAmPI the
+  policy and ownership fields are supplied by configuration instead. An ablation that withholds the annotations
+  (E6) is still planned.
+* On VAmPI the role-aware oracle misses one blind write whose effect is not observable through the API
+  (recall 0.667). Ownership-differential detection needs the API to expose ownership or a readable effect.
 * ZAP was evaluated in its standard single-user API scan. Its manual Access Control Testing add-on was not used.
-* crAPI is documented but not yet evaluated.
+* crAPI (E8) is documented but not yet evaluated, and the CI workflow has not yet been run on GitHub (E7).

@@ -17,6 +17,7 @@
     "seed:print": "node test-api/seeds/seed.js",
     "scan": "node cli-tool/src/cli.js scan --spec test-api/openapi.yaml --config cli-tool/config/example.config.yaml",
     "scan:baseline": "node cli-tool/src/cli.js scan --spec test-api/openapi.yaml --config cli-tool/config/example.config.yaml --status-only",
+    "scan:ci": "node cli-tool/src/cli.js scan --spec test-api/openapi.yaml --config cli-tool/config/example.config.yaml --target http://localhost:3000 --out reports/findings-vulnerable.json --fail-on none && node cli-tool/src/cli.js scan --spec test-api/openapi.yaml --config cli-tool/config/example.config.yaml --target http://localhost:3001 --out reports/findings-patched.json --fail-on none",
     "test": "node --test --test-concurrency=1 \"tests/**/*.test.js\"",
     "test:unit": "node --test \"tests/unit/**/*.test.js\"",
     "test:integration": "node --test --test-concurrency=1 \"tests/integration/**/*.test.js\"",

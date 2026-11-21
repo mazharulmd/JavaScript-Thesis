@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="760" height="420" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" role="img" aria-label="Authentication / JWT: detection quality">
+  <rect width="760" height="420" fill="#fcfcfb"/>
+  <text x="56" y="26" font-size="16" font-weight="600" fill="#0b0b0b">Authentication / JWT: detection quality</text>
+  <text x="56" y="44" font-size="12" fill="#52514e">Threshold: confirmed findings · vulnerable mode (vulnerable=1) · higher is better except FPR</text>
+  <rect x="56" y="52" width="12" height="12" rx="2" fill="#2a78d6"/><text x="74" y="62" font-size="13" fill="#0b0b0b">Role-aware</text><rect x="158" y="52" width="12" height="12" rx="2" fill="#eb6834"/><text x="176" y="62" font-size="13" fill="#0b0b0b">Status-only</text><rect x="267.2" y="52" width="12" height="12" rx="2" fill="#1baf7a"/><text x="285.2" y="62" font-size="13" fill="#0b0b0b">OWASP ZAP</text>
+  
+    <line x1="56" x2="736" y1="364" y2="364" stroke="#52514e" stroke-width="1"/>
+    <text x="48" y="368" text-anchor="end" font-size="12" fill="#52514e">0.00</text>
+    <line x1="56" x2="736" y1="294" y2="294" stroke="#e4e3df" stroke-width="1"/>
+    <text x="48" y="298" text-anchor="end" font-size="12" fill="#52514e">0.25</text>
+    <line x1="56" x2="736" y1="224" y2="224" stroke="#e4e3df" stroke-width="1"/>
+    <text x="48" y="228" text-anchor="end" font-size="12" fill="#52514e">0.50</text>
+    <line x1="56" x2="736" y1="154" y2="154" stroke="#e4e3df" stroke-width="1"/>
+    <text x="48" y="158" text-anchor="end" font-size="12" fill="#52514e">0.75</text>
+    <line x1="56" x2="736" y1="84" y2="84" stroke="#e4e3df" stroke-width="1"/>
+    <text x="48" y="88" text-anchor="end" font-size="12" fill="#52514e">1.00</text>
+  <text x="103" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>Role-aware - Precision: undefined</title></text><text x="141" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>Status-only - Precision: undefined</title></text><text x="179" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>OWASP ZAP - Precision: undefined</title></text><text x="141" y="386" text-anchor="middle" font-size="13" fill="#0b0b0b">Precision</text><text x="273" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>Role-aware - Recall: undefined</title></text><text x="311" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>Status-only - Recall: undefined</title></text><text x="349" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>OWASP ZAP - Recall: undefined</title></text><text x="311" y="386" text-anchor="middle" font-size="13" fill="#0b0b0b">Recall</text><text x="443" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>Role-aware - F1: undefined</title></text><text x="481" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>Status-only - F1: undefined</title></text><text x="519" y="358" text-anchor="middle" font-size="10" fill="#52514e">n/a<title>OWASP ZAP - F1: undefined</title></text><text x="481" y="386" text-anchor="middle" font-size="13" fill="#0b0b0b">F1</text><path d="M595,364 h36 v0 h-36 Z" fill="#2a78d6"><title>Role-aware - FPR: 0.000</title></path><rect x="595" y="363" width="36" height="2" fill="#2a78d6"/><path d="M633,364 h36 v0 h-36 Z" fill="#eb6834"><title>Status-only - FPR: 0.000</title></path><rect x="633" y="363" width="36" height="2" fill="#eb6834"/><path d="M671,364 h36 v0 h-36 Z" fill="#1baf7a"><title>OWASP ZAP - FPR: 0.000</title></path><rect x="671" y="363" width="36" height="2" fill="#1baf7a"/><text x="651" y="386" text-anchor="middle" font-size="13" fill="#0b0b0b">FPR</text>
+</svg>

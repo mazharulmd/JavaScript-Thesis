@@ -1,0 +1,391 @@
+{
+  "meta": {
+    "formatVersion": "1.0",
+    "tool": "bac-scanner",
+    "version": "1.0.0",
+    "mode": "status-only",
+    "endpointsTested": 6,
+    "target": "http://localhost:5002",
+    "spec": "benchmarks/vampi/openapi3.yml",
+    "scanId": "2026-11-21T09-46-34-884Z",
+    "startedAt": "2026-11-21T09:46:34.884Z",
+    "finishedAt": "2026-11-21T09:46:35.144Z",
+    "durationMs": 259,
+    "requests": 43
+  },
+  "findings": [
+    {
+      "id": "F-0001",
+      "category": "BFLA",
+      "method": "GET",
+      "path": "/users/v1/_debug",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.5,
+      "attacker": {
+        "account": "name1",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke GET /users/v1/_debug.",
+      "observed": "HTTP 200 returned to unauthorized caller (status-only oracle)",
+      "timestamp": "2026-11-21T09:46:35.145Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned to unauthorized caller (status-only oracle)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:5002/users/v1/_debug",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "close",
+            "content-length": "382",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 09:46:35 GMT",
+            "server": "Werkzeug/2.2.3 Python/3.11.15"
+          },
+          "body": {
+            "users": [
+              {
+                "admin": false,
+                "email": "mail1@mail.com",
+                "password": "[REDACTED]",
+                "username": "name1"
+              },
+              {
+                "admin": false,
+                "email": "mail2@mail.com",
+                "password": "[REDACTED]",
+                "username": "name2"
+              },
+              {
+                "admin": true,
+                "email": "admin@mail.com",
+                "password": "[REDACTED]",
+                "username": "admin"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0002",
+      "category": "BOLA",
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.5,
+      "attacker": {
+        "account": "name1",
+        "role": "user"
+      },
+      "victim": {
+        "account": "name2",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 204 returned to unauthorized caller (status-only oracle)",
+      "timestamp": "2026-11-21T09:46:35.145Z",
+      "evidence": {
+        "notes": [
+          "HTTP 204 returned to unauthorized caller (status-only oracle)"
+        ],
+        "request": {
+          "method": "PUT",
+          "url": "http://localhost:5002/users/v1/name2/password",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "password": "[REDACTED]"
+          }
+        },
+        "response": {
+          "status": 204,
+          "headers": {
+            "connection": "close",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 09:46:35 GMT",
+            "server": "Werkzeug/2.2.3 Python/3.11.15"
+          },
+          "body": ""
+        }
+      },
+      "resource": {
+        "username": "name2"
+      }
+    },
+    {
+      "id": "F-0003",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.5,
+      "attacker": {
+        "account": "name1",
+        "role": "user"
+      },
+      "victim": {
+        "account": "name2",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned to unauthorized caller (status-only oracle)",
+      "timestamp": "2026-11-21T09:46:35.145Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned to unauthorized caller (status-only oracle)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:5002/books/v1/bookTitle6",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "close",
+            "content-length": "81",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 09:46:35 GMT",
+            "server": "Werkzeug/2.2.3 Python/3.11.15"
+          },
+          "body": {
+            "book_title": "bookTitle6",
+            "owner": "name2",
+            "secret": "[REDACTED]"
+          }
+        }
+      },
+      "resource": {
+        "book_title": "bookTitle6"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "method": "GET",
+      "path": "/users/v1/_debug",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    }
+  ],
+  "summary": {
+    "totalFindings": 3,
+    "byStatus": {
+      "confirmed": 3,
+      "potential": 0,
+      "inconclusive": 0
+    },
+    "bySeverity": {
+      "critical": 0,
+      "high": 3,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "byCategory": {
+      "BOLA": 2,
+      "BFLA": 1,
+      "AUTH_MISSING": 0,
+      "AUTH_INVALID_TOKEN": 0,
+      "JWT_SIGNATURE": 0,
+      "JWT_NONE_ALG": 0,
+      "JWT_EXPIRED": 0
+    },
+    "confirmedBySeverity": {
+      "critical": 0,
+      "high": 3,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "endpointsTested": 6,
+    "totalRequests": 43,
+    "testsExecuted": 29,
+    "durationMs": 259
+  }
+}

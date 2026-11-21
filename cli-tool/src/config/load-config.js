@@ -22,10 +22,12 @@ export function loadConfig(path, env = process.env) {
 
 /** Applies defaults and resolves secrets from environment variables (never logged). */
 export function normalizeConfig(raw, env = process.env) {
+  const auth = { ...DEFAULTS.auth, ...(raw?.auth ?? {}) };
+  if (auth.jwtSecretEnv) auth.jwtSecret = env[auth.jwtSecretEnv];
   const cfg = {
     ...raw,
     allowedHosts: raw?.allowedHosts ?? [...DEFAULTS.allowedHosts],
-    auth: { ...DEFAULTS.auth, ...(raw?.auth ?? {}) },
+    auth,
     ownership: { ...DEFAULTS.ownership, ...(raw?.ownership ?? {}) },
     accessRules: raw?.accessRules ?? [],
     scan: { ...DEFAULTS.scan, ...(raw?.scan ?? {}) },
