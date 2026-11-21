@@ -5,6 +5,14 @@
 > ⚠️ This repository contains **intentionally vulnerable** APIs. Run them only locally or in an
 > isolated Docker environment (ports bind to `127.0.0.1`). All credentials are synthetic and benchmark-only.
 
+## Interactive web app
+
+**[`docs/webapp/index.html`](docs/webapp/index.html)** — open it in a browser to explore the whole
+project: what broken access control is, a step-by-step walkthrough of how the tool decides (the two
+oracles compared on the same response), the results (RQ2 charts, per-case grid, RQ3 cost), and a
+filterable table of every finding. It is a self-contained static page (all data embedded from the
+archived experiment results, no backend, no live scan). Rebuild with `node docs/webapp/build.js`.
+
 ## Project status
 
 | Component | Status | Evidence |
