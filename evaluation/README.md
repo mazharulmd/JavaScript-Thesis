@@ -66,7 +66,7 @@ operation are excluded from scoring (12 cases on the vulnerable benchmark). See 
 | E3 | Role-aware scanner (ownership-differential oracle) on test-api | **Executed**: `results/2026-11-21-scanner-test-api/` |
 | E4 | Status-code-only baseline on test-api, same request set as E3 | **Executed**: `results/2026-11-21-scanner-test-api/` |
 | E5 | E3/E4 on VAmPI | **Executed**: `results/2026-11-21-scanner-vampi/` |
-| E6 | Ablation: scanner without `x-access-control` annotations | Planned (recommended) |
+| E6 | Ablation: scanner without `x-access-control` annotations | **Executed**: `results/2026-11-21-ablation-e6/` |
 | E7 | RQ3: repeated runs (n ≥ 5) for time and request counts; CI run time on GitHub Actions | **Partly executed**: 5-run timing in `results/2026-11-21-scanner-test-api/rq3-timing.csv`; GitHub Actions run still pending |
 | E8 | crAPI | Planned; requires manual account and vehicle preparation |
 

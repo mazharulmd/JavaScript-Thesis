@@ -1,0 +1,61 @@
+run,threshold,scope,tp,fp,tn,fn,precision,recall,f1,fpr
+Annotations (baseline),confirmed,PRIMARY,14,0,17,0,1,1,1,0
+Annotations (baseline),confirmed,BOLA,8,0,8,0,1,1,1,0
+Annotations (baseline),confirmed,BFLA,6,0,9,0,1,1,1,0
+Annotations (baseline),confirmed,SECONDARY,6,0,197,0,1,1,1,0
+Annotations (baseline),confirmed,AUTH_MISSING,2,0,41,0,1,1,1,0
+Annotations (baseline),confirmed,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+Annotations (baseline),confirmed,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+Annotations (baseline),confirmed,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+Annotations (baseline),confirmed,JWT_EXPIRED,1,0,39,0,1,1,1,0
+Annotations (baseline),confirmed,OVERALL,20,0,214,0,1,1,1,0
+Annotations (baseline),confirmed+potential,PRIMARY,14,0,17,0,1,1,1,0
+Annotations (baseline),confirmed+potential,BOLA,8,0,8,0,1,1,1,0
+Annotations (baseline),confirmed+potential,BFLA,6,0,9,0,1,1,1,0
+Annotations (baseline),confirmed+potential,SECONDARY,6,0,197,0,1,1,1,0
+Annotations (baseline),confirmed+potential,AUTH_MISSING,2,0,41,0,1,1,1,0
+Annotations (baseline),confirmed+potential,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+Annotations (baseline),confirmed+potential,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+Annotations (baseline),confirmed+potential,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+Annotations (baseline),confirmed+potential,JWT_EXPIRED,1,0,39,0,1,1,1,0
+Annotations (baseline),confirmed+potential,OVERALL,20,0,214,0,1,1,1,0
+"Config rules, no annotations",confirmed,PRIMARY,14,0,17,0,1,1,1,0
+"Config rules, no annotations",confirmed,BOLA,8,0,8,0,1,1,1,0
+"Config rules, no annotations",confirmed,BFLA,6,0,9,0,1,1,1,0
+"Config rules, no annotations",confirmed,SECONDARY,6,0,197,0,1,1,1,0
+"Config rules, no annotations",confirmed,AUTH_MISSING,2,0,41,0,1,1,1,0
+"Config rules, no annotations",confirmed,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+"Config rules, no annotations",confirmed,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+"Config rules, no annotations",confirmed,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+"Config rules, no annotations",confirmed,JWT_EXPIRED,1,0,39,0,1,1,1,0
+"Config rules, no annotations",confirmed,OVERALL,20,0,214,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,PRIMARY,14,0,17,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,BOLA,8,0,8,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,BFLA,6,0,9,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,SECONDARY,6,0,197,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,AUTH_MISSING,2,0,41,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,JWT_EXPIRED,1,0,39,0,1,1,1,0
+"Config rules, no annotations",confirmed+potential,OVERALL,20,0,214,0,1,1,1,0
+No policy source,confirmed,PRIMARY,0,0,17,14,,0,,0
+No policy source,confirmed,BOLA,0,0,8,8,,0,,0
+No policy source,confirmed,BFLA,0,0,9,6,,0,,0
+No policy source,confirmed,SECONDARY,6,0,197,0,1,1,1,0
+No policy source,confirmed,AUTH_MISSING,2,0,41,0,1,1,1,0
+No policy source,confirmed,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+No policy source,confirmed,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+No policy source,confirmed,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+No policy source,confirmed,JWT_EXPIRED,1,0,39,0,1,1,1,0
+No policy source,confirmed,OVERALL,6,0,214,14,1,0.3,0.4615384615384615,0
+No policy source,confirmed+potential,PRIMARY,0,0,17,14,,0,,0
+No policy source,confirmed+potential,BOLA,0,0,8,8,,0,,0
+No policy source,confirmed+potential,BFLA,0,0,9,6,,0,,0
+No policy source,confirmed+potential,SECONDARY,6,0,197,0,1,1,1,0
+No policy source,confirmed+potential,AUTH_MISSING,2,0,41,0,1,1,1,0
+No policy source,confirmed+potential,AUTH_INVALID_TOKEN,1,0,40,0,1,1,1,0
+No policy source,confirmed+potential,JWT_SIGNATURE,1,0,39,0,1,1,1,0
+No policy source,confirmed+potential,JWT_NONE_ALG,1,0,38,0,1,1,1,0
+No policy source,confirmed+potential,JWT_EXPIRED,1,0,39,0,1,1,1,0
+No policy source,confirmed+potential,OVERALL,6,0,214,14,1,0.3,0.4615384615384615,0
