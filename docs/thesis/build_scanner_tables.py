@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'docs' / 'thesis' / 'scanner-results-tables.docx'
 TESTAPI = ROOT / 'evaluation/results/2026-11-21-scanner-test-api'
 VAMPI = ROOT / 'evaluation/results/2026-11-21-scanner-vampi'
+ABLATION = ROOT / 'evaluation/results/2026-11-21-ablation-e6'
 LABELS = {
     'PRIMARY': 'BOLA + BFLA', 'BOLA': 'BOLA', 'BFLA': 'BFLA',
     'SECONDARY': 'Authentication / JWT', 'OVERALL': 'All categories',
@@ -76,6 +77,17 @@ for target, rep in [('Benchmark API', bench), ('VAmPI', vampi)]:
 out.table('RQ2 summary - overall detection quality per target and approach',
           ['Target', 'Approach', 'Precision', 'Recall', 'F1', 'FPR', 'Detected'], rows,
           [3.0, 2.6, 1.7, 1.5, 1.3, 1.3, 1.6])
+
+# E6 ablation
+ablation = metrics(ABLATION / 'comparison')
+comparison_table(out, 'E6 ablation - benchmark API without x-access-control annotations',
+                 ablation, ['PRIMARY', 'SECONDARY', 'OVERALL'],
+                 note='Threshold: confirmed findings. "No policy source" = the spec annotations removed and no '
+                      'config accessRules supplied; the tool then generates no BOLA/BFLA tests but raises no false '
+                      'positives, and still finds the authentication flaws (from the spec security requirement). '
+                      '"Config rules, no annotations" supplies the same policy through configuration and fully '
+                      'restores detection. The tool depends on a declared policy source (spec or config), not '
+                      'specifically on OpenAPI annotations.')
 
 # RQ3 timing
 timing = list(csv.DictReader((TESTAPI / 'rq3-timing.csv').open()))
