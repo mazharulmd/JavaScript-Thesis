@@ -1,0 +1,120 @@
+name: security-scan
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_zap:
+        description: Also run the OWASP ZAP comparison scan
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit and integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  benchmark-scan:
+    name: Access-control scan of the benchmark
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Benchmark-only value; a real project would use a GitHub secret here.
+      JWT_SECRET: ${{ secrets.BENCH_JWT_SECRET || 'bench-only-insecure-secret-change-me' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Start benchmark (vulnerable :3000, patched :3001) and wait for health checks
+        run: docker compose up -d --build --wait --wait-timeout 120
+
+      - name: Run access-control scan
+        id: scan
+        run: |
+          mkdir -p reports
+          # Contract: `npm run scan:ci` writes reports/findings-patched.json and
+          # reports/findings-vulnerable.json in the findings format (docs/FINDINGS-FORMAT.md).
+          if node -e "process.exit(require('./package.json').scripts?.['scan:ci'] ? 0 : 1)"; then
+            npm run scan:ci
+            echo "ran=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice title=Scan skipped::No scan:ci script is defined yet; the scanner is not part of this revision."
+            echo "ran=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Security gate on the patched build (fails on confirmed high/critical findings)
+        if: steps.scan.outputs.ran == 'true'
+        run: node cli-tool/src/cli.js report --input reports/findings-patched.json --out-dir reports --name patched --fail-on high
+
+      - name: Detection regression check on the vulnerable build
+        if: steps.scan.outputs.ran == 'true'
+        run: |
+          node cli-tool/src/cli.js report --input reports/findings-vulnerable.json --out-dir reports --name vulnerable --fail-on none
+          node evaluation/check-regression.js --ground-truth test-api/ground-truth.json \
+            --findings reports/findings-vulnerable.json --scope PRIMARY --min-recall 1 --max-fp 0
+
+      - name: Benchmark logs
+        if: failure()
+        run: docker compose logs --no-color
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: access-control-reports
+          path: reports/
+          if-no-files-found: ignore
+
+      - name: Clean up Docker resources
+        if: always()
+        run: docker compose down -v --remove-orphans
+
+  zap-comparison:
+    name: OWASP ZAP comparison (manual)
+    if: github.event_name == 'workflow_dispatch' && inputs.run_zap
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: docker compose up -d --build --wait --wait-timeout 120
+      - run: benchmarks/zap/run-zap.sh http://localhost:3000 reports/zap-vulnerable
+      - run: benchmarks/zap/run-zap.sh http://localhost:3001 reports/zap-patched
+      - run: |
+          node evaluation/compare.js --ground-truth test-api/ground-truth.json \
+            --run "OWASP ZAP=reports/zap-vulnerable/zap-findings.json" --out reports/zap-vulnerable/metrics
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-comparison
+          path: reports/
+          if-no-files-found: ignore
+      - if: always()
+        run: docker compose down -v --remove-orphans

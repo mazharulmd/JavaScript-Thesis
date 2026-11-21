@@ -1,0 +1,36 @@
+case_id,category,method,path,vulnerable,Role-aware,Status-only,OWASP ZAP
+VAMPI-BOLA-01,BOLA,GET,/books/v1/{book_title},true,confirmed,confirmed,not reported
+VAMPI-BOLA-02,BOLA,PUT,/users/v1/{username}/password,true,not reported,confirmed,not reported
+VAMPI-BOLA-03,BOLA,PUT,/users/v1/{username}/email,false,not reported,not reported,not reported
+VAMPI-BFLA-01,BFLA,DELETE,/users/v1/{username},false,not reported,not reported,not reported
+VAMPI-BFLA-02,BFLA,GET,/users/v1/_debug,true,confirmed,confirmed,not reported
+VAMPI-AUTH_MISSING-01,AUTH_MISSING,GET,/me,false,not reported,not reported,not reported
+VAMPI-AUTH_INVALID_TOKEN-01,AUTH_INVALID_TOKEN,GET,/me,false,not reported,not reported,not reported
+VAMPI-JWT_SIGNATURE-01,JWT_SIGNATURE,GET,/me,false,not reported,not reported,not reported
+VAMPI-JWT_NONE_ALG-01,JWT_NONE_ALG,GET,/me,false,not reported,not reported,not reported
+VAMPI-JWT_EXPIRED-01,JWT_EXPIRED,GET,/me,false,not reported,not reported,not reported
+VAMPI-AUTH_MISSING-02,AUTH_MISSING,DELETE,/users/v1/{username},false,not reported,not reported,not reported
+VAMPI-AUTH_INVALID_TOKEN-02,AUTH_INVALID_TOKEN,DELETE,/users/v1/{username},false,not reported,not reported,not reported
+VAMPI-JWT_SIGNATURE-02,JWT_SIGNATURE,DELETE,/users/v1/{username},false,not reported,not reported,not reported
+VAMPI-JWT_NONE_ALG-02,JWT_NONE_ALG,DELETE,/users/v1/{username},false,not reported,not reported,not reported
+VAMPI-JWT_EXPIRED-02,JWT_EXPIRED,DELETE,/users/v1/{username},false,not reported,not reported,not reported
+VAMPI-AUTH_MISSING-03,AUTH_MISSING,PUT,/users/v1/{username}/email,false,not reported,not reported,not reported
+VAMPI-AUTH_INVALID_TOKEN-03,AUTH_INVALID_TOKEN,PUT,/users/v1/{username}/email,false,not reported,not reported,not reported
+VAMPI-JWT_SIGNATURE-03,JWT_SIGNATURE,PUT,/users/v1/{username}/email,false,not reported,not reported,not reported
+VAMPI-JWT_NONE_ALG-03,JWT_NONE_ALG,PUT,/users/v1/{username}/email,false,not reported,not reported,not reported
+VAMPI-JWT_EXPIRED-03,JWT_EXPIRED,PUT,/users/v1/{username}/email,false,not reported,not reported,not reported
+VAMPI-AUTH_MISSING-04,AUTH_MISSING,PUT,/users/v1/{username}/password,false,not reported,not reported,not reported
+VAMPI-AUTH_INVALID_TOKEN-04,AUTH_INVALID_TOKEN,PUT,/users/v1/{username}/password,false,not reported,not reported,not reported
+VAMPI-JWT_SIGNATURE-04,JWT_SIGNATURE,PUT,/users/v1/{username}/password,false,not reported,not reported,not reported
+VAMPI-JWT_NONE_ALG-04,JWT_NONE_ALG,PUT,/users/v1/{username}/password,false,not reported,not reported,not reported
+VAMPI-JWT_EXPIRED-04,JWT_EXPIRED,PUT,/users/v1/{username}/password,false,not reported,not reported,not reported
+VAMPI-AUTH_MISSING-05,AUTH_MISSING,POST,/books/v1,false,not reported,not reported,not reported
+VAMPI-AUTH_INVALID_TOKEN-05,AUTH_INVALID_TOKEN,POST,/books/v1,false,not reported,not reported,not reported
+VAMPI-JWT_SIGNATURE-05,JWT_SIGNATURE,POST,/books/v1,false,not reported,not reported,not reported
+VAMPI-JWT_NONE_ALG-05,JWT_NONE_ALG,POST,/books/v1,false,not reported,not reported,not reported
+VAMPI-JWT_EXPIRED-05,JWT_EXPIRED,POST,/books/v1,false,not reported,not reported,not reported
+VAMPI-AUTH_MISSING-06,AUTH_MISSING,GET,/books/v1/{book_title},false,not reported,not reported,not reported
+VAMPI-AUTH_INVALID_TOKEN-06,AUTH_INVALID_TOKEN,GET,/books/v1/{book_title},false,not reported,not reported,not reported
+VAMPI-JWT_SIGNATURE-06,JWT_SIGNATURE,GET,/books/v1/{book_title},false,not reported,not reported,not reported
+VAMPI-JWT_NONE_ALG-06,JWT_NONE_ALG,GET,/books/v1/{book_title},false,not reported,not reported,not reported
+VAMPI-JWT_EXPIRED-06,JWT_EXPIRED,GET,/books/v1/{book_title},false,not reported,not reported,not reported

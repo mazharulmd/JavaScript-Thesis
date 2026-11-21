@@ -1,0 +1,41 @@
+# Scanner configuration for VAmPI (docker compose --profile external up -d vampi vampi-secure).
+# Run GET /createdb first. Credentials are VAmPI's public demo accounts.
+target: http://localhost:5002          # 5003 = patched mode
+allowedHosts: [localhost, 127.0.0.1]
+
+auth:
+  header: Authorization
+  scheme: Bearer
+  jwtSecretEnv: VAMPI_JWT_SECRET
+  login:
+    method: POST
+    path: /users/v1/login
+    body: { username: "{{username}}", password: "{{password}}" }
+    tokenPath: auth_token
+    # no identityPath: the identity is the JWT "sub" claim (= username)
+
+roles:
+  admin: { level: 100, bypassOwnership: true }
+  user:  { level: 10 }
+
+accounts:
+  - { name: name1, role: user,  username: name1, password: pass1 }
+  - { name: name2, role: user,  username: name2, password: pass2 }
+  - { name: admin, role: admin, username: admin, password: pass1 }
+
+ownership:
+  fields: [owner, user, username]
+
+# VAmPI's spec has no access-control annotations: the intended policy is stated here
+# (derived from benchmarks/vampi/README.md).
+accessRules:
+  - { path: "/books/v1/{book_title}", methods: [GET], ownership: owner, ownerField: owner }
+  - { path: "/users/v1/{username}/password", methods: [PUT], ownership: owner }
+  - { path: "/users/v1/{username}/email", methods: [PUT], ownership: owner }
+  - { path: "/users/v1/{username}", methods: [DELETE], roles: [admin] }
+  - { path: "/users/v1/_debug", methods: [GET], roles: [admin] }
+
+scan:
+  requestTimeoutMs: 5000
+  delayMs: 0
+  maxRequests: 3000

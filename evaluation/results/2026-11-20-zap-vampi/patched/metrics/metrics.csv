@@ -1,0 +1,21 @@
+run,threshold,scope,tp,fp,tn,fn,precision,recall,f1,fpr
+OWASP ZAP,confirmed,PRIMARY,0,0,4,1,,0,,0
+OWASP ZAP,confirmed,BOLA,0,0,3,0,,,,0
+OWASP ZAP,confirmed,BFLA,0,0,1,1,,0,,0
+OWASP ZAP,confirmed,SECONDARY,0,0,30,0,,,,0
+OWASP ZAP,confirmed,AUTH_MISSING,0,0,6,0,,,,0
+OWASP ZAP,confirmed,AUTH_INVALID_TOKEN,0,0,6,0,,,,0
+OWASP ZAP,confirmed,JWT_SIGNATURE,0,0,6,0,,,,0
+OWASP ZAP,confirmed,JWT_NONE_ALG,0,0,6,0,,,,0
+OWASP ZAP,confirmed,JWT_EXPIRED,0,0,6,0,,,,0
+OWASP ZAP,confirmed,OVERALL,0,0,34,1,,0,,0
+OWASP ZAP,confirmed+potential,PRIMARY,0,0,4,1,,0,,0
+OWASP ZAP,confirmed+potential,BOLA,0,0,3,0,,,,0
+OWASP ZAP,confirmed+potential,BFLA,0,0,1,1,,0,,0
+OWASP ZAP,confirmed+potential,SECONDARY,0,0,30,0,,,,0
+OWASP ZAP,confirmed+potential,AUTH_MISSING,0,0,6,0,,,,0
+OWASP ZAP,confirmed+potential,AUTH_INVALID_TOKEN,0,0,6,0,,,,0
+OWASP ZAP,confirmed+potential,JWT_SIGNATURE,0,0,6,0,,,,0
+OWASP ZAP,confirmed+potential,JWT_NONE_ALG,0,0,6,0,,,,0
+OWASP ZAP,confirmed+potential,JWT_EXPIRED,0,0,6,0,,,,0
+OWASP ZAP,confirmed+potential,OVERALL,0,0,34,1,,0,,0

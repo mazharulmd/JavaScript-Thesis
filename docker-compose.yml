@@ -1,0 +1,58 @@
+# Local benchmark environment. Intentionally vulnerable: bind to localhost only.
+#   docker compose up -d --build
+#   docker compose --profile external up -d   # also starts VAmPI (vulnerable + patched)
+services:
+  test-api:
+    build:
+      context: .
+      dockerfile: test-api/Dockerfile
+    image: bac-test-api:local
+    environment:
+      PORT: "3000"
+      FLAWS: all
+      BENCHMARK_MODE: "1"
+      JWT_SECRET: ${JWT_SECRET:-bench-only-insecure-secret-change-me}
+    ports:
+      - "127.0.0.1:3000:3000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Same code with every injected flaw disabled: the patched build (true-negative dataset).
+  test-api-secure:
+    image: bac-test-api:local
+    depends_on:
+      test-api:
+        condition: service_started
+    environment:
+      PORT: "3000"
+      FLAWS: none
+      BENCHMARK_MODE: "1"
+      JWT_SECRET: ${JWT_SECRET:-bench-only-insecure-secret-change-me}
+    ports:
+      - "127.0.0.1:3001:3000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  vampi:
+    profiles: [external]
+    image: erev0s/vampi:latest
+    environment:
+      vulnerable: "1"
+      tokentimetolive: "3600"
+    ports:
+      - "127.0.0.1:5002:5000"
+
+  vampi-secure:
+    profiles: [external]
+    image: erev0s/vampi:latest
+    environment:
+      vulnerable: "0"
+      tokentimetolive: "3600"
+    ports:
+      - "127.0.0.1:5003:5000"

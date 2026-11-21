@@ -1,0 +1,8 @@
+node_modules
+**/node_modules
+.git
+Thesis Template
+*.docx
+reports
+evaluation/results
+benchmarks

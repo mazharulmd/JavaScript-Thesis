@@ -1,0 +1,195 @@
+% Starter bibliography for the literature review.
+%
+% Verification (2026-11-21): every entry marked "verified" was checked against OpenAlex (by DOI) or
+% arXiv (by id); title, first author and year matched the registry record. Verification confirms that
+% the work exists and the metadata is right. It does NOT confirm what the work says: read each source
+% before citing it for a claim. Venue details beyond the DOI should be completed from the publisher page.
+
+% --- REST API testing ---------------------------------------------------------------------------
+
+@inproceedings{atlidakis2019restler,
+  title     = {{RESTler}: Stateful {REST} {API} Fuzzing},
+  author    = {Atlidakis, Vaggelis and Godefroid, Patrice and Polishchuk, Marina},
+  booktitle = {Proceedings of the 41st International Conference on Software Engineering (ICSE)},
+  year      = {2019},
+  doi       = {10.1109/ICSE.2019.00083},
+  note      = {verified (OpenAlex W2955835447)}
+}
+
+@inproceedings{atlidakis2020security,
+  title     = {Checking Security Properties of Cloud Service {REST} {APIs}},
+  author    = {Atlidakis, Vaggelis and Godefroid, Patrice and Polishchuk, Marina},
+  booktitle = {IEEE International Conference on Software Testing, Validation and Verification (ICST)},
+  year      = {2020},
+  doi       = {10.1109/ICST46399.2020.00046},
+  note      = {verified (OpenAlex W2938295127). Includes security checkers related to resource access across users.}
+}
+
+@article{arcuri2019evomaster,
+  title   = {{RESTful} {API} Automated Test Case Generation with {EvoMaster}},
+  author  = {Arcuri, Andrea},
+  journal = {ACM Transactions on Software Engineering and Methodology},
+  year    = {2019},
+  doi     = {10.1145/3293455},
+  note    = {verified (OpenAlex W2997401484)}
+}
+
+@inproceedings{viglianisi2020resttestgen,
+  title     = {{RESTTESTGEN}: Automated Black-Box Testing of {RESTful} {APIs}},
+  author    = {Viglianisi, Emanuele and Dallago, Michael and Ceccato, Mariano},
+  booktitle = {IEEE International Conference on Software Testing, Validation and Verification (ICST)},
+  year      = {2020},
+  doi       = {10.1109/ICST46399.2020.00024},
+  note      = {verified (OpenAlex W3047848029)}
+}
+
+@article{corradini2022nominal,
+  title   = {Automated Black-Box Testing of Nominal and Error Scenarios in {RESTful} {APIs}},
+  author  = {Corradini, Davide and Zampieri, Amedeo and Pasqua, Michele and Viglianisi, Emanuele and Dallago, Michael and Ceccato, Mariano},
+  journal = {Software Testing, Verification and Reliability},
+  year    = {2022},
+  doi     = {10.1002/stvr.1808},
+  note    = {verified (OpenAlex W4207068811)}
+}
+
+@inproceedings{kim2022norest,
+  title     = {Automated Test Generation for {REST} {APIs}: No Time to Rest Yet},
+  author    = {Kim, Myeongsoo and Xin, Qi and Sinha, Saurabh and Orso, Alessandro},
+  booktitle = {Proceedings of the 31st ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA)},
+  year      = {2022},
+  doi       = {10.1145/3533767.3534401},
+  note      = {verified (OpenAlex W4224306538)}
+}
+
+@article{golmohammadi2023survey,
+  title   = {Testing {RESTful} {APIs}: A Survey},
+  author  = {Golmohammadi, Amid and Zhang, Man and Arcuri, Andrea},
+  journal = {ACM Transactions on Software Engineering and Methodology},
+  year    = {2023},
+  doi     = {10.1145/3617175},
+  note    = {verified (OpenAlex W4386027284)}
+}
+
+% --- Access control in APIs -------------------------------------------------------------------
+
+@misc{barabanov2022accesscontrol,
+  title         = {Automatic Detection of Access Control Vulnerabilities via {API} Specification Processing},
+  author        = {Barabanov, Alexander and Dergunov, Denis and Makrushin, Denis and Teplov, Aleksey},
+  year          = {2022},
+  eprint        = {2201.10833},
+  archivePrefix = {arXiv},
+  doi           = {10.21681/2311-3456-2022-1-49-65},
+  note          = {verified (arXiv 2201.10833). Closely related work: BOLA detection from OpenAPI specifications.}
+}
+
+@article{sandhu1996rbac,
+  title   = {Role-Based Access Control Models},
+  author  = {Sandhu, Ravi S. and Coyne, Edward J. and Feinstein, Hal L. and Youman, Charles E.},
+  journal = {Computer},
+  year    = {1996},
+  doi     = {10.1109/2.485845},
+  note    = {verified (OpenAlex W2166602595)}
+}
+
+% --- Black-box (DAST) scanner evaluations ------------------------------------------------------
+
+@inproceedings{doupe2010johnny,
+  title     = {Why {Johnny} Can't Pentest: An Analysis of Black-Box Web Vulnerability Scanners},
+  author    = {Doup{\'e}, Adam and Cova, Marco and Vigna, Giovanni},
+  booktitle = {Detection of Intrusions and Malware, and Vulnerability Assessment (DIMVA)},
+  year      = {2010},
+  doi       = {10.1007/978-3-642-14215-4_7},
+  note      = {verified (OpenAlex W1489243061)}
+}
+
+@inproceedings{bau2010stateoftheart,
+  title     = {State of the Art: Automated Black-Box Web Application Vulnerability Testing},
+  author    = {Bau, Jason and Bursztein, Elie and Gupta, Divij and Mitchell, John},
+  booktitle = {IEEE Symposium on Security and Privacy},
+  year      = {2010},
+  doi       = {10.1109/SP.2010.27},
+  note      = {verified (OpenAlex W1979931683)}
+}
+
+% --- JWT -------------------------------------------------------------------------------------------
+
+@techreport{rfc7519,
+  title       = {{JSON} Web Token ({JWT})},
+  author      = {Jones, Michael B. and Bradley, John and Sakimura, Nat},
+  institution = {IETF},
+  type        = {RFC},
+  number      = {7519},
+  year        = {2015},
+  doi         = {10.17487/RFC7519},
+  note        = {verified (OpenAlex W2254160488)}
+}
+
+@techreport{rfc8725,
+  title       = {{JSON} Web Token Best Current Practices},
+  author      = {Sheffer, Yaron and Hardt, Dick and Jones, Michael B.},
+  institution = {IETF},
+  type        = {RFC},
+  number      = {8725},
+  year        = {2020},
+  doi         = {10.17487/RFC8725},
+  note        = {verified (OpenAlex W2765511846)}
+}
+
+% --- Methodology -------------------------------------------------------------------------------
+
+@article{hevner2004design,
+  title   = {Design Science in Information Systems Research},
+  author  = {Hevner, Alan R. and March, Salvatore T. and Park, Jinsoo and Ram, Sudha},
+  journal = {MIS Quarterly},
+  year    = {2004},
+  doi     = {10.2307/25148625},
+  note    = {verified (OpenAlex W3151685851)}
+}
+
+@article{peffers2007dsrm,
+  title   = {A Design Science Research Methodology for Information Systems Research},
+  author  = {Peffers, Ken and Tuunanen, Tuure and Rothenberger, Marcus A. and Chatterjee, Samir},
+  journal = {Journal of Management Information Systems},
+  year    = {2007},
+  doi     = {10.2753/MIS0742-1222240302},
+  note    = {verified (OpenAlex W2136922540)}
+}
+
+% --- NOT machine-verified: confirm before citing ----------------------------------------------
+
+@phdthesis{fielding2000rest,
+  title  = {Architectural Styles and the Design of Network-based Software Architectures},
+  author = {Fielding, Roy Thomas},
+  school = {University of California, Irvine},
+  year   = {2000},
+  note   = {UNVERIFIED: the registry lookup timed out. Check against the original before citing.}
+}
+
+@misc{owasp2023apitop10,
+  title  = {{OWASP} {API} Security Top 10 -- 2023},
+  author = {{OWASP Foundation}},
+  year   = {2023},
+  url    = {https://owasp.org/API-Security/},
+  note   = {UNVERIFIED web source (cited in the proposal). Confirm the edition URL and add the access date.}
+}
+
+@misc{zaproxy,
+  title  = {{Zed Attack Proxy (ZAP)}},
+  author = {{ZAP Development Team}},
+  url    = {https://www.zaproxy.org/},
+  note   = {UNVERIFIED web source. Version used in the experiments: 2.17.0 (see evaluation/results). Add the access date.}
+}
+
+@misc{vampi,
+  title  = {{VAmPI}: Vulnerable {REST} {API} with {OWASP} Top 10 vulnerabilities},
+  author = {erev0s},
+  url    = {https://github.com/erev0s/VAmPI},
+  note   = {UNVERIFIED web source; title as given in the repository README. Image used: erev0s/vampi:latest (2026-11-20).}
+}
+
+@misc{crapi,
+  title  = {{crAPI}: completely ridiculous {API}},
+  author = {{OWASP Foundation}},
+  url    = {https://github.com/OWASP/crAPI},
+  note   = {UNVERIFIED web source. Add the access date.}
+}

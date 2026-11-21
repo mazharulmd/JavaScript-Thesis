@@ -1,0 +1,290 @@
+{
+  "meta": {
+    "formatVersion": "1.0",
+    "tool": "bac-scanner",
+    "version": "1.0.0",
+    "mode": "ownership-differential",
+    "endpointsTested": 6,
+    "target": "http://localhost:5003",
+    "spec": "benchmarks/vampi/openapi3.yml",
+    "scanId": "2026-11-21T09-46-35-323Z",
+    "startedAt": "2026-11-21T09:46:35.323Z",
+    "finishedAt": "2026-11-21T09:46:35.605Z",
+    "durationMs": 280,
+    "requests": 43
+  },
+  "findings": [
+    {
+      "id": "F-0001",
+      "category": "BFLA",
+      "method": "GET",
+      "path": "/users/v1/_debug",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "name1",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke GET /users/v1/_debug.",
+      "observed": "HTTP 200 allowed disallowed role \"user\"",
+      "timestamp": "2026-11-21T09:46:35.605Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 allowed disallowed role \"user\""
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:5003/users/v1/_debug",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "close",
+            "content-length": "382",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 09:46:35 GMT",
+            "server": "Werkzeug/2.2.3 Python/3.11.15"
+          },
+          "body": {
+            "users": [
+              {
+                "admin": false,
+                "email": "mail1@mail.com",
+                "password": "[REDACTED]",
+                "username": "name1"
+              },
+              {
+                "admin": false,
+                "email": "mail2@mail.com",
+                "password": "[REDACTED]",
+                "username": "name2"
+              },
+              {
+                "admin": true,
+                "email": "admin@mail.com",
+                "password": "[REDACTED]",
+                "username": "admin"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "tests": [
+    {
+      "method": "GET",
+      "path": "/users/v1/_debug",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/email",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/users/v1/{username}/password",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/books/v1",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/books/v1/{book_title}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    }
+  ],
+  "summary": {
+    "totalFindings": 1,
+    "byStatus": {
+      "confirmed": 1,
+      "potential": 0,
+      "inconclusive": 0
+    },
+    "bySeverity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "byCategory": {
+      "BOLA": 0,
+      "BFLA": 1,
+      "AUTH_MISSING": 0,
+      "AUTH_INVALID_TOKEN": 0,
+      "JWT_SIGNATURE": 0,
+      "JWT_NONE_ALG": 0,
+      "JWT_EXPIRED": 0
+    },
+    "confirmedBySeverity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "endpointsTested": 6,
+    "totalRequests": 43,
+    "testsExecuted": 29,
+    "durationMs": 280
+  }
+}

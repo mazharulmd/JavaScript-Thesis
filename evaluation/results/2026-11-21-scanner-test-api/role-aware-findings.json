@@ -1,0 +1,3662 @@
+{
+  "meta": {
+    "formatVersion": "1.0",
+    "tool": "bac-scanner",
+    "version": "1.0.0",
+    "mode": "ownership-differential",
+    "endpointsTested": 43,
+    "target": "http://localhost:3000",
+    "spec": "test-api/openapi.yaml",
+    "scanId": "2026-11-21T09-44-00-386Z",
+    "startedAt": "2026-11-21T09:44:00.386Z",
+    "finishedAt": "2026-11-21T09:44:01.591Z",
+    "durationMs": 1204,
+    "requests": 362
+  },
+  "findings": [
+    {
+      "id": "F-0001",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned victim's (3) object to alice",
+      "timestamp": "2026-11-21T09:44:01.592Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned victim's (3) object to alice"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/users/3",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "159",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"9f-7vgZY9d3MVJsNrpnyP3NXrcEDwU\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "e2f6d849-9632-47dd-8bad-66c819e7c215"
+          },
+          "body": {
+            "id": 3,
+            "username": "bob",
+            "role": "user",
+            "displayName": "Bob Example",
+            "email": "bob@bench.local",
+            "phone": "+358-40-000-0003",
+            "createdAt": "2026-11-01T08:00:00.000Z"
+          }
+        }
+      },
+      "resource": {
+        "userId": "3"
+      }
+    },
+    {
+      "id": "F-0002",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned victim's (3) object to guest",
+      "timestamp": "2026-11-21T09:44:01.592Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned victim's (3) object to guest"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/users/3",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "159",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"9f-7vgZY9d3MVJsNrpnyP3NXrcEDwU\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "949fdd90-4376-4b58-8255-dad57a6a51c8"
+          },
+          "body": {
+            "id": 3,
+            "username": "bob",
+            "role": "user",
+            "displayName": "Bob Example",
+            "email": "bob@bench.local",
+            "phone": "+358-40-000-0003",
+            "createdAt": "2026-11-01T08:00:00.000Z"
+          }
+        }
+      },
+      "resource": {
+        "userId": "3"
+      }
+    },
+    {
+      "id": "F-0003",
+      "category": "BOLA",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 mutation persisted (probe marker verified on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.592Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 mutation persisted (probe marker verified on owner re-read)"
+        ],
+        "request": {
+          "method": "PATCH",
+          "url": "http://localhost:3000/api/users/3",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "displayName": "Alice E.-bac-probe-13",
+            "phone": "+358-40-000-0099"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "169",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"a9-L/dJNGFzhKqayopyIVEIMZzvTQE\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "1484f2a0-cf05-44f1-afef-2cff7b9c1dfc"
+          },
+          "body": {
+            "id": 3,
+            "username": "bob",
+            "role": "user",
+            "displayName": "Alice E.-bac-probe-13",
+            "email": "bob@bench.local",
+            "phone": "+358-40-000-0099",
+            "createdAt": "2026-11-01T08:00:00.000Z"
+          }
+        }
+      },
+      "resource": {
+        "userId": "3"
+      }
+    },
+    {
+      "id": "F-0004",
+      "category": "BOLA",
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 mutation persisted (probe marker verified on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 mutation persisted (probe marker verified on owner re-read)"
+        ],
+        "request": {
+          "method": "PATCH",
+          "url": "http://localhost:3000/api/users/3",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "displayName": "Alice E.-bac-probe-14",
+            "phone": "+358-40-000-0099"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "169",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"a9-hniZOuOlAYb0ef8iqbUGkxnH7Pw\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "58b51f5c-85ba-4d0c-b980-04f1e38b83e9"
+          },
+          "body": {
+            "id": 3,
+            "username": "bob",
+            "role": "user",
+            "displayName": "Alice E.-bac-probe-14",
+            "email": "bob@bench.local",
+            "phone": "+358-40-000-0099",
+            "createdAt": "2026-11-01T08:00:00.000Z"
+          }
+        }
+      },
+      "resource": {
+        "userId": "3"
+      }
+    },
+    {
+      "id": "F-0005",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned victim's (3) object to alice",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned victim's (3) object to alice"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/orders/1005",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "215",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"d7-WQ+2f/Ztu87jT5yo5l9S8g8YvS4\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "c2f760fb-3eca-41d5-a0fd-613220f5832c"
+          },
+          "body": {
+            "id": 1005,
+            "ownerId": 3,
+            "status": "shipped",
+            "items": [
+              {
+                "sku": "SKU-1030",
+                "quantity": 1,
+                "unitPrice": 49.9
+              }
+            ],
+            "total": 49.9,
+            "shippingAddress": "30 Example Street, 70100 Kuopio",
+            "note": "",
+            "createdAt": "2026-11-01T08:30:00.000Z"
+          }
+        }
+      },
+      "resource": {
+        "orderId": 1005
+      }
+    },
+    {
+      "id": "F-0006",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned victim's (3) object to guest",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned victim's (3) object to guest"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/orders/1005",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "215",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"d7-WQ+2f/Ztu87jT5yo5l9S8g8YvS4\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "a167d115-9535-4120-9ae8-c2f724cb309c"
+          },
+          "body": {
+            "id": 1005,
+            "ownerId": 3,
+            "status": "shipped",
+            "items": [
+              {
+                "sku": "SKU-1030",
+                "quantity": 1,
+                "unitPrice": 49.9
+              }
+            ],
+            "total": 49.9,
+            "shippingAddress": "30 Example Street, 70100 Kuopio",
+            "note": "",
+            "createdAt": "2026-11-01T08:30:00.000Z"
+          }
+        }
+      },
+      "resource": {
+        "orderId": 1005
+      }
+    },
+    {
+      "id": "F-0007",
+      "category": "BOLA",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.98,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 204 deleted victim's resource (verified 404 on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 204 deleted victim's resource (verified 404 on owner re-read)"
+        ],
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:3000/api/orders/2001",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 204,
+          "headers": {
+            "connection": "keep-alive",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "keep-alive": "timeout=5",
+            "x-request-id": "c081da9c-89ee-4228-93c0-9f59efef5666"
+          },
+          "body": ""
+        }
+      },
+      "resource": {
+        "orderId": 2001
+      }
+    },
+    {
+      "id": "F-0008",
+      "category": "BOLA",
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.98,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 204 deleted victim's resource (verified 404 on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 204 deleted victim's resource (verified 404 on owner re-read)"
+        ],
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:3000/api/orders/2002",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 204,
+          "headers": {
+            "connection": "keep-alive",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "keep-alive": "timeout=5",
+            "x-request-id": "1e484a16-32e2-428b-bb5e-9bbe0c2e49cf"
+          },
+          "body": ""
+        }
+      },
+      "resource": {
+        "orderId": 2002
+      }
+    },
+    {
+      "id": "F-0009",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned victim's (3) object to alice",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned victim's (3) object to alice"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/invoices/7005",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "217",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"d9-wk6MtuimRueVfD3UDKyv5JtLO3g\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "010fd5d8-85a6-4362-b476-66a569433f00"
+          },
+          "body": {
+            "data": {
+              "invoice": {
+                "id": 7005,
+                "orderId": 1005,
+                "amount": 49.9,
+                "currency": "EUR",
+                "status": "paid",
+                "billing": {
+                  "accountId": 3,
+                  "iban": "FI00 0000 0000 0030",
+                  "address": "30 Example Street"
+                },
+                "issuedAt": "2026-11-01T08:31:00.000Z"
+              }
+            }
+          }
+        }
+      },
+      "resource": {
+        "invoiceId": 7005
+      }
+    },
+    {
+      "id": "F-0010",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 returned victim's (3) object to guest",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 returned victim's (3) object to guest"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/invoices/7005",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "217",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"d9-wk6MtuimRueVfD3UDKyv5JtLO3g\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "9bd96aa8-05a0-4788-9d8b-d3915b23297c"
+          },
+          "body": {
+            "data": {
+              "invoice": {
+                "id": 7005,
+                "orderId": 1005,
+                "amount": 49.9,
+                "currency": "EUR",
+                "status": "paid",
+                "billing": {
+                  "accountId": 3,
+                  "iban": "FI00 0000 0000 0030",
+                  "address": "30 Example Street"
+                },
+                "issuedAt": "2026-11-01T08:31:00.000Z"
+              }
+            }
+          }
+        }
+      },
+      "resource": {
+        "invoiceId": 7005
+      }
+    },
+    {
+      "id": "F-0011",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/documents",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "expected": "Only roles [admin, user] may invoke POST /api/documents.",
+      "observed": "HTTP 201 allowed disallowed role \"guest\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 allowed disallowed role \"guest\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/documents",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "title": "Meeting notes-bac-probe-83",
+            "content": "Notes from the weekly meeting.",
+            "visibility": "private"
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "172",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:00 GMT",
+            "etag": "W/\"ac-JtbYrexXCfQHarVySeF+Yj2jjYQ\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "684ea59d-d4a1-4708-a466-4f36bd501dd3"
+          },
+          "body": {
+            "id": "doc-new-1",
+            "ownerId": 4,
+            "title": "Meeting notes-bac-probe-83",
+            "content": "Notes from the weekly meeting.",
+            "visibility": "private",
+            "createdAt": "2026-11-21T09:44:00.958Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0012",
+      "category": "BOLA",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 mutation persisted (probe marker verified on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 mutation persisted (probe marker verified on owner re-read)"
+        ],
+        "request": {
+          "method": "PATCH",
+          "url": "http://localhost:3000/api/documents/doc-3-private",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "title": "Updated title-bac-probe-105",
+            "content": "Updated content.",
+            "visibility": "private"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "202",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"ca-zG1ioik9rII5ve7yur++HJ6J6Zs\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "38ddd1ee-2d30-4e74-bd2a-428c8e2908d3"
+          },
+          "body": {
+            "id": "doc-3-private",
+            "ownerId": 3,
+            "title": "Updated title-bac-probe-105",
+            "content": "Updated content.",
+            "visibility": "private",
+            "createdAt": "2026-11-01T09:00:00.000Z",
+            "updatedAt": "2026-11-21T09:44:01.032Z"
+          }
+        }
+      },
+      "resource": {
+        "documentId": "doc-3-private"
+      }
+    },
+    {
+      "id": "F-0013",
+      "category": "BOLA",
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 mutation persisted (probe marker verified on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 mutation persisted (probe marker verified on owner re-read)"
+        ],
+        "request": {
+          "method": "PATCH",
+          "url": "http://localhost:3000/api/documents/doc-3-private",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "title": "Updated title-bac-probe-106",
+            "content": "Updated content.",
+            "visibility": "private"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "202",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"ca-FeesXgzRjYaEhuc4V2P2JmFfxbo\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "45b9eaf3-5970-4713-afd6-e280619ff1a7"
+          },
+          "body": {
+            "id": "doc-3-private",
+            "ownerId": 3,
+            "title": "Updated title-bac-probe-106",
+            "content": "Updated content.",
+            "visibility": "private",
+            "createdAt": "2026-11-01T09:00:00.000Z",
+            "updatedAt": "2026-11-21T09:44:01.040Z"
+          }
+        }
+      },
+      "resource": {
+        "documentId": "doc-3-private"
+      }
+    },
+    {
+      "id": "F-0014",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.9,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 response matches victim owner's baseline response",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 response matches victim owner's baseline response"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/devices/dev-003-a/readings",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "250",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"fa-NSRnoE6PXIulLCSdnHqMzgTqa58\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "a4091a0b-f42f-4f21-91b7-030d612766f9"
+          },
+          "body": {
+            "deviceId": "dev-003-a",
+            "unit": "C",
+            "readings": [
+              {
+                "ts": "2026-11-01T09:30:00.000Z",
+                "value": 23,
+                "unit": "C",
+                "note": ""
+              },
+              {
+                "ts": "2026-11-01T09:35:00.000Z",
+                "value": 23.1,
+                "unit": "C",
+                "note": ""
+              },
+              {
+                "ts": "2026-11-01T09:40:00.000Z",
+                "value": 23.2,
+                "unit": "C",
+                "note": ""
+              }
+            ]
+          }
+        }
+      },
+      "resource": {
+        "deviceId": "dev-003-a"
+      }
+    },
+    {
+      "id": "F-0015",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.9,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 response matches victim owner's baseline response",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 response matches victim owner's baseline response"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/devices/dev-003-a/readings",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "250",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"fa-NSRnoE6PXIulLCSdnHqMzgTqa58\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "14d744eb-6244-4b6f-a2e6-f05809b1afcc"
+          },
+          "body": {
+            "deviceId": "dev-003-a",
+            "unit": "C",
+            "readings": [
+              {
+                "ts": "2026-11-01T09:30:00.000Z",
+                "value": 23,
+                "unit": "C",
+                "note": ""
+              },
+              {
+                "ts": "2026-11-01T09:35:00.000Z",
+                "value": 23.1,
+                "unit": "C",
+                "note": ""
+              },
+              {
+                "ts": "2026-11-01T09:40:00.000Z",
+                "value": 23.2,
+                "unit": "C",
+                "note": ""
+              }
+            ]
+          }
+        }
+      },
+      "resource": {
+        "deviceId": "dev-003-a"
+      }
+    },
+    {
+      "id": "F-0016",
+      "category": "BOLA",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.9,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 201 changed victim's resource state (verified on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 changed victim's resource state (verified on owner re-read)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/devices/dev-003-a/readings",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "value": 21.5,
+            "unit": "C",
+            "note": "manual reading"
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "104",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"68-YIc1jjwNwiVJFTaE9KlmQgD5CPw\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "ff09820a-db36-4505-a21e-9f9802cc522b"
+          },
+          "body": {
+            "deviceId": "dev-003-a",
+            "ts": "2026-11-21T09:44:01.139Z",
+            "value": 21.5,
+            "unit": "C",
+            "note": "manual reading"
+          }
+        }
+      },
+      "resource": {
+        "deviceId": "dev-003-a"
+      }
+    },
+    {
+      "id": "F-0017",
+      "category": "BOLA",
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.9,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 201 changed victim's resource state (verified on owner re-read)",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 changed victim's resource state (verified on owner re-read)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/devices/dev-003-a/readings",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "value": 21.5,
+            "unit": "C",
+            "note": "manual reading"
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "104",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"68-kt3PDolVikXKbiSghF4RG1A30ws\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "cb083798-83fe-48ed-8232-0e5d7f2d9608"
+          },
+          "body": {
+            "deviceId": "dev-003-a",
+            "ts": "2026-11-21T09:44:01.145Z",
+            "value": 21.5,
+            "unit": "C",
+            "note": "manual reading"
+          }
+        }
+      },
+      "resource": {
+        "deviceId": "dev-003-a"
+      }
+    },
+    {
+      "id": "F-0018",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/products",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke POST /api/products.",
+      "observed": "HTTP 201 allowed disallowed role \"user\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 allowed disallowed role \"user\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/products",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "sku": "SKU-900-bac-probe-158",
+            "name": "Test product-bac-probe-158",
+            "price": 9.99,
+            "stock": 5
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "99",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"63-yYAVGs/OOXEb845BYEQCK5Cimzw\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "420d0612-c37b-484c-bab5-c8cbc7cc8407"
+          },
+          "body": {
+            "id": 601,
+            "sku": "SKU-900-bac-probe-158",
+            "name": "Test product-bac-probe-158",
+            "price": 9.99,
+            "stock": 5
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0019",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/products",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "expected": "Only roles [admin] may invoke POST /api/products.",
+      "observed": "HTTP 201 allowed disallowed role \"guest\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 allowed disallowed role \"guest\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/products",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "sku": "SKU-900-bac-probe-159",
+            "name": "Test product-bac-probe-159",
+            "price": 9.99,
+            "stock": 5
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "99",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"63-3Aer/tkInPpP4O61oThzeCMjQ18\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "2fc96448-5fd8-42f7-8a91-cf7d7f2c48a7"
+          },
+          "body": {
+            "id": 602,
+            "sku": "SKU-900-bac-probe-159",
+            "name": "Test product-bac-probe-159",
+            "price": 9.99,
+            "stock": 5
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0020",
+      "category": "BFLA",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke GET /api/admin/users.",
+      "observed": "HTTP 200 allowed disallowed role \"user\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 allowed disallowed role \"user\""
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/admin/users",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "1002",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"3ea-eHQAmUIwoCk031VLYk1Tk3r8xXA\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "daf5c220-fdbe-40cd-a922-ba30a90cd550"
+          },
+          "body": {
+            "users": [
+              {
+                "id": 1,
+                "username": "admin",
+                "role": "admin",
+                "displayName": "Ada Admin",
+                "email": "admin@bench.local",
+                "phone": "+358-40-000-0001",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 2,
+                "username": "alice",
+                "role": "user",
+                "displayName": "Alice Example",
+                "email": "alice@bench.local",
+                "phone": "+358-40-000-0002",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 3,
+                "username": "bob",
+                "role": "user",
+                "displayName": "Alice E.-bac-probe-14",
+                "email": "bob@bench.local",
+                "phone": "+358-40-000-0099",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 4,
+                "username": "guest",
+                "role": "guest",
+                "displayName": "Gus Guest",
+                "email": "guest@bench.local",
+                "phone": "+358-40-000-0004",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 5,
+                "username": "carol",
+                "role": "user",
+                "displayName": "Carol Example",
+                "email": "carol@bench.local",
+                "phone": "+358-40-000-0005",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 6,
+                "username": "dave",
+                "role": "user",
+                "displayName": "Dave Example",
+                "email": "dave@bench.local",
+                "phone": "+358-40-000-0006",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0021",
+      "category": "BFLA",
+      "method": "GET",
+      "path": "/api/admin/users",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "expected": "Only roles [admin] may invoke GET /api/admin/users.",
+      "observed": "HTTP 200 allowed disallowed role \"guest\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 allowed disallowed role \"guest\""
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/admin/users",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "1002",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"3ea-eHQAmUIwoCk031VLYk1Tk3r8xXA\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "3bae81a4-9965-4862-af39-b6a138506f9f"
+          },
+          "body": {
+            "users": [
+              {
+                "id": 1,
+                "username": "admin",
+                "role": "admin",
+                "displayName": "Ada Admin",
+                "email": "admin@bench.local",
+                "phone": "+358-40-000-0001",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 2,
+                "username": "alice",
+                "role": "user",
+                "displayName": "Alice Example",
+                "email": "alice@bench.local",
+                "phone": "+358-40-000-0002",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 3,
+                "username": "bob",
+                "role": "user",
+                "displayName": "Alice E.-bac-probe-14",
+                "email": "bob@bench.local",
+                "phone": "+358-40-000-0099",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 4,
+                "username": "guest",
+                "role": "guest",
+                "displayName": "Gus Guest",
+                "email": "guest@bench.local",
+                "phone": "+358-40-000-0004",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 5,
+                "username": "carol",
+                "role": "user",
+                "displayName": "Carol Example",
+                "email": "carol@bench.local",
+                "phone": "+358-40-000-0005",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              },
+              {
+                "id": 6,
+                "username": "dave",
+                "role": "user",
+                "displayName": "Dave Example",
+                "email": "dave@bench.local",
+                "phone": "+358-40-000-0006",
+                "createdAt": "2026-11-01T08:00:00.000Z"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0022",
+      "category": "BFLA",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke DELETE /api/admin/users/{userId}.",
+      "observed": "HTTP 200 allowed disallowed role \"user\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 allowed disallowed role \"user\""
+        ],
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:3000/api/admin/users/100",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "25",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"19-sXZpm+O6KRGMT2fz/E55csUTiow\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "281b923e-27e0-4161-8e2f-a1e7954db693"
+          },
+          "body": {
+            "deleted": true,
+            "id": 100
+          }
+        }
+      },
+      "resource": {
+        "userId": 100
+      }
+    },
+    {
+      "id": "F-0023",
+      "category": "BFLA",
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "expected": "Only roles [admin] may invoke DELETE /api/admin/users/{userId}.",
+      "observed": "HTTP 200 allowed disallowed role \"guest\"",
+      "timestamp": "2026-11-21T09:44:01.593Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 allowed disallowed role \"guest\""
+        ],
+        "request": {
+          "method": "DELETE",
+          "url": "http://localhost:3000/api/admin/users/101",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "25",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"19-wzfm+kUgpu7u6UAvzF9K5seOPlY\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "f0c92610-8bb4-4d0f-b8c0-2c2db0cf68ad"
+          },
+          "body": {
+            "deleted": true,
+            "id": 101
+          }
+        }
+      },
+      "resource": {
+        "userId": 101
+      }
+    },
+    {
+      "id": "F-0024",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke POST /api/admin/announcements.",
+      "observed": "HTTP 201 allowed disallowed role \"user\"",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 allowed disallowed role \"user\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/admin/announcements",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "title": "Maintenance window-bac-probe-228",
+            "message": "The platform will be offline on Sunday."
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "156",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"9c-/2h+77vpaqqd22L7+/Icb9EtNJQ\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "d470fafd-da9e-4e72-869e-11226ca8693a"
+          },
+          "body": {
+            "id": 2,
+            "title": "Maintenance window-bac-probe-228",
+            "message": "The platform will be offline on Sunday.",
+            "createdBy": 2,
+            "createdAt": "2026-11-21T09:44:01.484Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0025",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "expected": "Only roles [admin] may invoke POST /api/admin/announcements.",
+      "observed": "HTTP 201 allowed disallowed role \"guest\"",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 allowed disallowed role \"guest\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/admin/announcements",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "title": "Maintenance window-bac-probe-229",
+            "message": "The platform will be offline on Sunday."
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "156",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"9c-aMt8dy6/OKDP3SCQVAtz1/yE+lY\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "4b7a16a5-598f-404d-ad2f-ed7090ef3249"
+          },
+          "body": {
+            "id": 3,
+            "title": "Maintenance window-bac-probe-229",
+            "message": "The platform will be offline on Sunday.",
+            "createdBy": 4,
+            "createdAt": "2026-11-21T09:44:01.487Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0026",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "expected": "Only roles [admin] may invoke POST /api/admin/backups.",
+      "observed": "HTTP 202 allowed disallowed role \"user\"",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 202 allowed disallowed role \"user\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/admin/backups",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 202,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "102",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"66-sl4kM8VvGPS07CdNBqKT4GNAK0A\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "e2e1de97-271c-41fd-b616-60e2f31db5cc"
+          },
+          "body": {
+            "backupId": "bkp-1",
+            "status": "started",
+            "requestedBy": 2,
+            "jobId": "59e27faa-7f74-4058-b948-75acb9585026"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0027",
+      "category": "BFLA",
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "guest",
+        "role": "guest"
+      },
+      "expected": "Only roles [admin] may invoke POST /api/admin/backups.",
+      "observed": "HTTP 202 allowed disallowed role \"guest\"",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 202 allowed disallowed role \"guest\""
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/admin/backups",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 202,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "102",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"66-yBgc2OIBVr/jJ9t10/3TOEsdSfs\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "5d959159-0316-49a6-8968-7bf1abfa23f6"
+          },
+          "body": {
+            "backupId": "bkp-2",
+            "status": "started",
+            "requestedBy": 4,
+            "jobId": "9c771e8f-52e2-4660-a500-b6b95429015b"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0028",
+      "category": "AUTH_MISSING",
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Request without credentials must be rejected (401).",
+      "observed": "HTTP 200 accepted request (AUTH_MISSING)",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (AUTH_MISSING)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/system/diagnostics",
+          "headers": {
+            "accept": "application/json"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "232",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"e8-RcuXCRu5hNwlK0VaJpyCWD11kPY\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "478f25d2-cef5-4e4b-b8c6-9978318b3bf3"
+          },
+          "body": {
+            "service": "bac-test-api",
+            "version": "1.0.0",
+            "node": "v22.23.5",
+            "environment": "benchmark",
+            "database": {
+              "engine": "in-memory",
+              "users": 6,
+              "orders": 15
+            },
+            "internalHosts": [
+              "db.internal.bench.local",
+              "cache.internal.bench.local"
+            ],
+            "uptimeSec": 67
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0029",
+      "category": "AUTH_MISSING",
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Request without credentials must be rejected (401).",
+      "observed": "HTTP 201 accepted request (AUTH_MISSING)",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 201 accepted request (AUTH_MISSING)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:3000/api/support/tickets",
+          "headers": {
+            "accept": "application/json",
+            "content-type": "application/json"
+          },
+          "body": {
+            "subject": "Cannot pair device",
+            "message": "The pairing dialog does not appear."
+          }
+        },
+        "response": {
+          "status": 201,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "120",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"78-G7d+OLxQ3Q3LEqlj1/HfgFn/LqM\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "aa31e7b8-c0c8-4428-8206-467be8f505aa"
+          },
+          "body": {
+            "id": 1,
+            "subject": "Cannot pair device",
+            "message": "The pairing dialog does not appear.",
+            "createdBy": null,
+            "status": "open"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0030",
+      "category": "AUTH_INVALID_TOKEN",
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Malformed token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (AUTH_INVALID_TOKEN)",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (AUTH_INVALID_TOKEN)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/analytics/summary",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "67",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"43-IS5nID7hnV3t2SV2rgxCnInTU0E\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "9e2c0aa5-8cbb-41ba-9c39-70dfd2963833"
+          },
+          "body": {
+            "period": "2026-11",
+            "orders": 15,
+            "revenue": 616.5,
+            "activeDevices": 12
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0031",
+      "category": "JWT_SIGNATURE",
+      "method": "GET",
+      "path": "/api/messages",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Token with invalid signature must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_SIGNATURE)",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_SIGNATURE)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/messages",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "157",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"9d-WEJdrtf/dleGFl/XTqtbm2NXgQo\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "d3cbf09b-a45f-4b65-b37a-9589633c1de5"
+          },
+          "body": {
+            "messages": [
+              {
+                "id": 9002,
+                "recipientId": 2,
+                "from": "support",
+                "subject": "Hello user 2",
+                "body": "Private message for user 2.",
+                "sentAt": "2026-11-01T08:02:00.000Z"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0032",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/api/notifications",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/notifications",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "126",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"7e-zl745ATOzmBaW+4dMEw7Ed37TYQ\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "6e3fd719-19e5-478e-9444-62c106864ece"
+          },
+          "body": {
+            "notifications": [
+              {
+                "id": 9502,
+                "userId": 2,
+                "text": "You have 2 new alerts.",
+                "read": false,
+                "createdAt": "2026-11-01T08:03:00.000Z"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0033",
+      "category": "JWT_EXPIRED",
+      "method": "GET",
+      "path": "/api/sessions",
+      "severity": "medium",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Expired JWT must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_EXPIRED)",
+      "timestamp": "2026-11-21T09:44:01.594Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_EXPIRED)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:3000/api/sessions",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "connection": "keep-alive",
+            "content-length": "125",
+            "content-type": "application/json; charset=utf-8",
+            "date": "Sat, 21 Nov 2026 09:44:01 GMT",
+            "etag": "W/\"7d-l/6B3HLvG4LBZYORldE/3i5NzZI\"",
+            "keep-alive": "timeout=5",
+            "x-request-id": "c670831e-07fd-4af0-8b64-2ce472af1ce4"
+          },
+          "body": {
+            "sessions": [
+              {
+                "id": "sess-2-1",
+                "userId": 2,
+                "device": "Firefox on Linux",
+                "ip": "10.0.0.2",
+                "lastSeen": "2026-11-01T08:04:00.000Z"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "tests": [
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/me",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/profiles/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/accounts/{accountId}/summary",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/orders",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/orders/{orderId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/invoices/{invoiceId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/documents",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/documents/{documentId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/devices/{deviceId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/devices/{deviceId}/readings",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/devices/{deviceId}/config",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/products",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/products/{productId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/products/{productId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/users",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "AUTH_MISSING",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/admin/users/{userId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/api/admin/users/{userId}/role",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/stats",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/reports",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "BFLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/admin/audit-logs",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/announcements",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "BFLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/api/admin/backups",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/announcements",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "AUTH_MISSING",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/diagnostics",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "AUTH_MISSING",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/api/support/tickets",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/analytics/summary",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_SIGNATURE",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/api/messages",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/api/notifications",
+      "category": "JWT_EXPIRED",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sessions",
+      "category": "JWT_EXPIRED",
+      "verdict": "vulnerable"
+    }
+  ],
+  "summary": {
+    "totalFindings": 33,
+    "byStatus": {
+      "confirmed": 33,
+      "potential": 0,
+      "inconclusive": 0
+    },
+    "bySeverity": {
+      "critical": 6,
+      "high": 26,
+      "medium": 1,
+      "low": 0,
+      "info": 0
+    },
+    "byCategory": {
+      "BOLA": 16,
+      "BFLA": 11,
+      "AUTH_MISSING": 2,
+      "AUTH_INVALID_TOKEN": 1,
+      "JWT_SIGNATURE": 1,
+      "JWT_NONE_ALG": 1,
+      "JWT_EXPIRED": 1
+    },
+    "confirmedBySeverity": {
+      "critical": 6,
+      "high": 26,
+      "medium": 1,
+      "low": 0,
+      "info": 0
+    },
+    "endpointsTested": 43,
+    "totalRequests": 362,
+    "testsExecuted": 276,
+    "durationMs": 1204
+  }
+}
