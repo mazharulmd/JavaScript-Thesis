@@ -1,0 +1,38 @@
+# Scanner configuration for OWASP crAPI (E8). crAPI has no x-access-control annotations,
+# so the intended policy is supplied here. Identity = the user's e-mail (the JWT subject).
+# Accounts are created by signup before the scan (see benchmarks/crapi/run-e8.sh).
+target: http://localhost:8888
+allowedHosts: [localhost, 127.0.0.1]
+
+auth:
+  header: Authorization
+  scheme: Bearer
+  login:
+    method: POST
+    path: /identity/api/auth/login
+    body: { email: "{{email}}", password: "{{password}}" }
+    tokenPath: token
+    # identity comes from the JWT "sub" claim (= e-mail)
+
+roles:
+  user: { level: 10 }
+  mechanic: { level: 20 }
+
+accounts:
+  - { name: alice, role: user, email: alice.bac@example.test, password: "Bac#Test2026" }
+  - { name: bob,   role: user, email: bob.bac@example.test,   password: "Bac#Test2026" }
+  - { name: mech,  role: mechanic, email: mech.bac@example.test, password: "Bac#Test2026" }
+
+ownership:
+  fields: [email, user_id, userId, owner, createdBy, id, uuid]
+
+# Intended policy for crAPI's object- and function-level endpoints (derived from crAPI docs).
+accessRules:
+  - { path: "/identity/api/v2/vehicle/{vehicleId}/location", methods: [GET], ownership: owner }
+  - { path: "/workshop/api/shop/orders/{order_id}", methods: [GET, PUT], ownership: owner }
+  - { path: "/identity/api/v2/user/videos/{video_id}", methods: [GET, PUT, DELETE], ownership: owner }
+
+scan:
+  requestTimeoutMs: 8000
+  delayMs: 0
+  maxRequests: 2000

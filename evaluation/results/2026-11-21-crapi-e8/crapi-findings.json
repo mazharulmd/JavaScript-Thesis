@@ -1,0 +1,2336 @@
+{
+  "meta": {
+    "formatVersion": "1.0",
+    "tool": "bac-scanner",
+    "version": "1.0.0",
+    "mode": "ownership-differential",
+    "endpointsTested": 32,
+    "target": "http://localhost:8888",
+    "spec": "benchmarks/crapi/crAPI/openapi-spec/crapi-openapi-spec.json",
+    "scanId": "2026-11-21T16-05-27-027Z",
+    "startedAt": "2026-11-21T16:05:27.027Z",
+    "finishedAt": "2026-11-21T16:05:31.334Z",
+    "durationMs": 4306,
+    "requests": 158
+  },
+  "findings": [
+    {
+      "id": "F-0001",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/identity/api/v2/user/reset-password",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/identity/api/v2/user/reset-password",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "email": "samplebac-auth-4",
+            "password": "[REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:28 GMT",
+            "expires": "0",
+            "pragma": "no-cache",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-xss-protection": "0"
+          },
+          "body": {
+            "message": "Password reset successful.",
+            "status": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0002",
+      "category": "JWT_SIGNATURE",
+      "method": "GET",
+      "path": "/identity/api/v2/user/dashboard",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Token with invalid signature must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_SIGNATURE)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_SIGNATURE)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/identity/api/v2/user/dashboard",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:28 GMT",
+            "expires": "0",
+            "pragma": "no-cache",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-xss-protection": "0"
+          },
+          "body": {
+            "id": 8,
+            "name": "Alice Test",
+            "email": "alice.bac@example.test",
+            "number": "4000000001",
+            "picture_url": null,
+            "video_url": null,
+            "video_name": null,
+            "available_credit": 100,
+            "video_id": 0,
+            "role": "ROLE_USER"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0003",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/vehicles",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/identity/api/v2/vehicle/vehicles",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:29 GMT",
+            "expires": "0",
+            "pragma": "no-cache",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-xss-protection": "0"
+          },
+          "body": []
+        }
+      }
+    },
+    {
+      "id": "F-0004",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.9,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 response matches victim owner's baseline response",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 response matches victim owner's baseline response"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/identity/api/v2/vehicle/1929186d-8b67-4163-a208-de52a41f7301/location",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:29 GMT",
+            "expires": "0",
+            "pragma": "no-cache",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-xss-protection": "0"
+          },
+          "body": {
+            "carId": "1929186d-8b67-4163-a208-de52a41f7301",
+            "vehicleLocation": {
+              "id": 4,
+              "latitude": "38.206348",
+              "longitude": "-84.270172"
+            },
+            "fullName": "Test",
+            "email": "test@example.com"
+          }
+        }
+      },
+      "resource": {
+        "vehicleId": "1929186d-8b67-4163-a208-de52a41f7301"
+      }
+    },
+    {
+      "id": "F-0005",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/identity/api/v2/vehicle/1929186d-8b67-4163-a208-de52a41f7301/location",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:29 GMT",
+            "expires": "0",
+            "pragma": "no-cache",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-xss-protection": "0"
+          },
+          "body": {
+            "carId": "1929186d-8b67-4163-a208-de52a41f7301",
+            "vehicleLocation": {
+              "id": 4,
+              "latitude": "38.206348",
+              "longitude": "-84.270172"
+            },
+            "fullName": "Test",
+            "email": "test@example.com"
+          }
+        }
+      },
+      "resource": {
+        "vehicleId": "1929186d-8b67-4163-a208-de52a41f7301"
+      }
+    },
+    {
+      "id": "F-0006",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/resend_email",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/identity/api/v2/vehicle/resend_email",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:29 GMT",
+            "expires": "0",
+            "pragma": "no-cache",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY",
+            "x-xss-protection": "0"
+          },
+          "body": {
+            "message": "Your newly purchased Vehicle Details have been sent to you email address. If you have used example.com email, check your email using the MailHog web portal. ",
+            "status": 200
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0007",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/community/api/v2/community/posts",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/community/api/v2/community/posts",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "content": "Est maiores voluptas velit. Necessitatibus vero veniam quos nobis.",
+            "title": "Velit quia minima.-bac-auth-83"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-headers": "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization",
+            "access-control-allow-methods": "POST, GET, OPTIONS, PUT, DELETE",
+            "access-control-allow-origin": "*",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:29 GMT",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked"
+          },
+          "body": {
+            "id": "kz9Y2Mwi5oSyXbMvDbaSGg",
+            "title": "Velit quia minima.-bac-auth-83",
+            "content": "Est maiores voluptas velit. Necessitatibus vero veniam quos nobis.",
+            "author": {
+              "nickname": "Alice Test",
+              "email": "alice.bac@example.test",
+              "vehicleid": "",
+              "profile_pic_url": "",
+              "created_at": "2026-11-21T16:05:29.782127049Z"
+            },
+            "comments": [],
+            "authorid": 8,
+            "CreatedAt": "2026-11-21T16:05:29.782127304Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0008",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/recent",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/community/api/v2/community/posts/recent",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-headers": "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization",
+            "access-control-allow-methods": "POST, GET, OPTIONS, PUT, DELETE",
+            "access-control-allow-origin": "*",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:29 GMT",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked"
+          },
+          "body": {
+            "posts": [
+              {
+                "id": "kz9Y2Mwi5oSyXbMvDbaSGg",
+                "title": "Velit quia minima.-bac-auth-83",
+                "content": "Est maiores voluptas velit. Necessitatibus vero veniam quos nobis.",
+                "author": {
+                  "nickname": "Alice Test",
+                  "email": "alice.bac@example.test",
+                  "vehicleid": "",
+                  "profile_pic_url": "",
+                  "created_at": "2026-11-21T16:05:29.782Z"
+                },
+                "comments": [],
+                "authorid": 8,
+                "CreatedAt": "2026-11-21T16:05:29.782Z"
+              },
+              {
+                "id": "gKVPvkqfBCdGRzYJfA7M8A",
+                "title": "Title 3",
+                "content": "Hello world 3",
+                "author": {
+                  "nickname": "Robot",
+                  "email": "robot001@example.com",
+                  "vehicleid": "4bae9968-ec7f-4de3-a3a0-ba1b2ab5e5e5",
+                  "profile_pic_url": "",
+                  "created_at": "2026-11-21T16:02:44.172Z"
+                },
+                "comments": [],
+                "authorid": 3,
+                "CreatedAt": "2026-11-21T16:02:44.172Z"
+              },
+              {
+                "id": "US22w4VFMKqpxR2U9QJqKU",
+                "title": "Title 2",
+                "content": "Hello world 2",
+                "author": {
+                  "nickname": "Pogba",
+                  "email": "pogba006@example.com",
+                  "vehicleid": "cd515c12-0fc1-48ae-8b61-9230b70a845b",
+                  "profile_pic_url": "",
+                  "created_at": "2026-11-21T16:02:44.171Z"
+                },
+                "comments": [],
+                "authorid": 2,
+                "CreatedAt": "2026-11-21T16:02:44.171Z"
+              },
+              {
+                "id": "xc8fvATqnmjodwgkebYqRj",
+                "title": "Title 1",
+                "content": "Hello world 1",
+                "author": {
+                  "nickname": "Adam",
+                  "email": "adam007@example.com",
+                  "vehicleid": "f89b5f21-7829-45cb-a650-299a61090378",
+                  "profile_pic_url": "",
+                  "created_at": "2026-11-21T16:02:44.165Z"
+                },
+                "comments": [],
+                "authorid": 1,
+                "CreatedAt": "2026-11-21T16:02:44.165Z"
+              }
+            ],
+            "next_offset": null,
+            "previous_offset": null,
+            "total": 4
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0009",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/community/api/v2/coupon/new-coupon",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.335Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/community/api/v2/coupon/new-coupon",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "coupon_code": "TRAC075",
+            "amount": "75"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-headers": "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization",
+            "access-control-allow-methods": "POST, GET, OPTIONS, PUT, DELETE",
+            "access-control-allow-origin": "*",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked"
+          },
+          "body": "Coupon Added in database"
+        }
+      }
+    },
+    {
+      "id": "F-0010",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/community/api/v2/coupon/validate-coupon",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/community/api/v2/coupon/validate-coupon",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "coupon_code": "TRAC075"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "access-control-allow-headers": "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization",
+            "access-control-allow-methods": "POST, GET, OPTIONS, PUT, DELETE",
+            "access-control-allow-origin": "*",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked"
+          },
+          "body": {
+            "coupon_code": "TRAC075",
+            "amount": "75",
+            "CreatedAt": "2026-11-21T16:02:43.125Z"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0011",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/workshop/api/shop/products",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/shop/products",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, POST, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "products": [
+              {
+                "id": 2,
+                "name": "Wheel",
+                "price": "10.00",
+                "image_url": "images/wheel.svg"
+              },
+              {
+                "id": 1,
+                "name": "Seat",
+                "price": "10.00",
+                "image_url": "images/seat.svg"
+              }
+            ],
+            "credit": 100,
+            "next_offset": null,
+            "previous_offset": null,
+            "count": 2
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0012",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/workshop/api/shop/products",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/workshop/api/shop/products",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "name": "WheelBase",
+            "image_url": "http://example.com/wheelbase.png",
+            "price": "10.12"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, POST, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "id": 3,
+            "name": "WheelBase",
+            "price": "10.12",
+            "image_url": "http://example.com/wheelbase.png"
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0013",
+      "category": "JWT_NONE_ALG",
+      "method": "POST",
+      "path": "/workshop/api/shop/orders",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "POST",
+          "url": "http://localhost:8888/workshop/api/shop/orders",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]",
+            "content-type": "application/json"
+          },
+          "body": {
+            "product_id": 1,
+            "quantity": 1
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, POST, PUT, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "id": 6,
+            "message": "Order sent successfully.",
+            "credit": 90
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0014",
+      "category": "BOLA",
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "severity": "high",
+      "status": "confirmed",
+      "confidence": 0.9,
+      "attacker": {
+        "account": "alice",
+        "role": "user"
+      },
+      "victim": {
+        "account": "bob",
+        "role": "user"
+      },
+      "expected": "Only the owner of the addressed object (or an administrator) may perform the operation.",
+      "observed": "HTTP 200 response matches victim owner's baseline response",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 response matches victim owner's baseline response"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/shop/orders/1",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, POST, PUT, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "order": {
+              "id": 1,
+              "user": {
+                "email": "adam007@example.com",
+                "number": "9876895423"
+              },
+              "product": {
+                "id": 1,
+                "name": "Seat",
+                "price": "10.00",
+                "image_url": "images/seat.svg"
+              },
+              "quantity": 2,
+              "status": "delivered",
+              "transaction_id": "b7a37f52-6201-46f1-8895-c6fd5fc90c65",
+              "created_on": "2026-11-21T16:03:06.296408"
+            },
+            "payment": {
+              "transaction_id": "b7a37f52-6201-46f1-8895-c6fd5fc90c65",
+              "order_id": 1,
+              "amount": 20,
+              "paid_on": "2026-11-21T16:03:06.296408",
+              "card_number": "XXXXXXXXXXXX9541",
+              "card_owner_name": "Adam",
+              "card_type": "Visa",
+              "card_expiry": "12/2027",
+              "currency": "USD"
+            }
+          }
+        }
+      },
+      "resource": {
+        "order_id": 1
+      }
+    },
+    {
+      "id": "F-0015",
+      "category": "AUTH_MISSING",
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Request without credentials must be rejected (401).",
+      "observed": "HTTP 200 accepted request (AUTH_MISSING)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (AUTH_MISSING)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/shop/orders/1",
+          "headers": {
+            "accept": "application/json"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, POST, PUT, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "order": {
+              "id": 1,
+              "user": {
+                "email": "adam007@example.com",
+                "number": "9876895423"
+              },
+              "product": {
+                "id": 1,
+                "name": "Seat",
+                "price": "10.00",
+                "image_url": "images/seat.svg"
+              },
+              "quantity": 2,
+              "status": "delivered",
+              "transaction_id": "b7a37f52-6201-46f1-8895-c6fd5fc90c65",
+              "created_on": "2026-11-21T16:03:06.296408"
+            },
+            "payment": {
+              "transaction_id": "b7a37f52-6201-46f1-8895-c6fd5fc90c65",
+              "order_id": 1,
+              "amount": 20,
+              "paid_on": "2026-11-21T16:03:06.296408",
+              "card_number": "XXXXXXXXXXXX9541",
+              "card_owner_name": "Adam",
+              "card_type": "Visa",
+              "card_expiry": "12/2027",
+              "currency": "USD"
+            }
+          }
+        }
+      },
+      "resource": {
+        "order_id": 1
+      }
+    },
+    {
+      "id": "F-0016",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/all",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/shop/orders/all",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:30 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "orders": [
+              {
+                "id": 6,
+                "user": {
+                  "email": "alice.bac@example.test",
+                  "number": "4000000001"
+                },
+                "product": {
+                  "id": 1,
+                  "name": "Seat",
+                  "price": "10.00",
+                  "image_url": "images/seat.svg"
+                },
+                "quantity": 1,
+                "status": "delivered",
+                "transaction_id": "966d226b-372a-4c7a-98de-1060e4909d4c",
+                "created_on": "2026-11-21T16:05:30.355545"
+              }
+            ],
+            "next_offset": null,
+            "previous_offset": null,
+            "count": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0017",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/workshop/api/management/users/all",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/management/users/all",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:31 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "users": [
+              {
+                "user": {
+                  "email": "adam007@example.com",
+                  "number": "9876895423"
+                },
+                "available_credit": 100
+              },
+              {
+                "user": {
+                  "email": "pogba006@example.com",
+                  "number": "9876570006"
+                },
+                "available_credit": 100
+              },
+              {
+                "user": {
+                  "email": "robot001@example.com",
+                  "number": "9876570001"
+                },
+                "available_credit": 100
+              },
+              {
+                "user": {
+                  "email": "test@example.com",
+                  "number": "9876540001"
+                },
+                "available_credit": 100
+              },
+              {
+                "user": {
+                  "email": "admin@example.com",
+                  "number": "9010203040"
+                },
+                "available_credit": 100
+              },
+              {
+                "user": {
+                  "email": "jhon@example.com",
+                  "number": ""
+                },
+                "available_credit": 0
+              },
+              {
+                "user": {
+                  "email": "james@example.com",
+                  "number": ""
+                },
+                "available_credit": 0
+              },
+              {
+                "user": {
+                  "email": "alice.bac@example.test",
+                  "number": "4000000001"
+                },
+                "available_credit": 90
+              },
+              {
+                "user": {
+                  "email": "bob.bac@example.test",
+                  "number": "4000000002"
+                },
+                "available_credit": 100
+              },
+              {
+                "user": {
+                  "email": "mech.bac@example.test",
+                  "number": "4000000003"
+                },
+                "available_credit": 0
+              }
+            ],
+            "next_offset": null,
+            "previous_offset": null,
+            "count": 10
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0018",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/workshop/api/mechanic/",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/mechanic/",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:31 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "mechanics": [
+              {
+                "id": 1,
+                "mechanic_code": "TRAC_JHN",
+                "user": {
+                  "email": "jhon@example.com",
+                  "number": ""
+                }
+              },
+              {
+                "id": 2,
+                "mechanic_code": "TRAC_JME",
+                "user": {
+                  "email": "james@example.com",
+                  "number": ""
+                }
+              },
+              {
+                "id": 3,
+                "mechanic_code": "TRAC_JHt2",
+                "user": {
+                  "email": "mech.bac@example.test",
+                  "number": "4000000003"
+                }
+              }
+            ],
+            "previous_offset": null,
+            "next_offset": null
+          }
+        }
+      }
+    },
+    {
+      "id": "F-0019",
+      "category": "JWT_NONE_ALG",
+      "method": "GET",
+      "path": "/workshop/api/mechanic/service_requests",
+      "severity": "critical",
+      "status": "confirmed",
+      "confidence": 0.95,
+      "attacker": {
+        "account": "unauthenticated",
+        "role": "anonymous"
+      },
+      "expected": "Unsigned alg=none token must be rejected (401).",
+      "observed": "HTTP 200 accepted request (JWT_NONE_ALG)",
+      "timestamp": "2026-11-21T16:05:31.336Z",
+      "evidence": {
+        "notes": [
+          "HTTP 200 accepted request (JWT_NONE_ALG)"
+        ],
+        "request": {
+          "method": "GET",
+          "url": "http://localhost:8888/workshop/api/mechanic/service_requests",
+          "headers": {
+            "accept": "application/json",
+            "Authorization": "Bearer [REDACTED]"
+          }
+        },
+        "response": {
+          "status": 200,
+          "headers": {
+            "allow": "GET, HEAD, OPTIONS",
+            "connection": "keep-alive",
+            "content-type": "application/json",
+            "cross-origin-opener-policy": "same-origin",
+            "date": "Sat, 21 Nov 2026 16:05:31 GMT",
+            "referrer-policy": "same-origin",
+            "server": "openresty/1.27.1.2",
+            "transfer-encoding": "chunked",
+            "vary": "origin, Cookie",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "DENY"
+          },
+          "body": {
+            "service_requests": [],
+            "next_offset": null,
+            "previous_offset": null,
+            "count": 0
+          }
+        }
+      }
+    }
+  ],
+  "tests": [
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/reset-password",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/reset-password",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/reset-password",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/reset-password",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/reset-password",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/change-email",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/change-email",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/change-email",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/change-email",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/change-email",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/verify-email-token",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/verify-email-token",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/verify-email-token",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/verify-email-token",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/verify-email-token",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/dashboard",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/dashboard",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/dashboard",
+      "category": "JWT_SIGNATURE",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/dashboard",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/dashboard",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/pictures",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/pictures",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/pictures",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/pictures",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/pictures",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/videos",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/videos",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/videos",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/videos",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/user/videos",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "PUT",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "BOLA",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "AUTH_MISSING",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "DELETE",
+      "path": "/identity/api/v2/user/videos/{video_id}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/convert_video",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/convert_video",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/convert_video",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/convert_video",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/user/videos/convert_video",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/vehicles",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/vehicles",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/vehicles",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/vehicles",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/vehicles",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/add_vehicle",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/add_vehicle",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/add_vehicle",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/add_vehicle",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/add_vehicle",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/identity/api/v2/vehicle/{vehicleId}/location",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/resend_email",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/resend_email",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/resend_email",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/resend_email",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/identity/api/v2/vehicle/resend_email",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/{postId}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/{postId}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/{postId}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/{postId}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/{postId}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts/{postId}/comment",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts/{postId}/comment",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts/{postId}/comment",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts/{postId}/comment",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/community/posts/{postId}/comment",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/recent",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/recent",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/recent",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/recent",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/community/api/v2/community/posts/recent",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/new-coupon",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/new-coupon",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/new-coupon",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/new-coupon",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/new-coupon",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/validate-coupon",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/validate-coupon",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/validate-coupon",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/validate-coupon",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/community/api/v2/coupon/validate-coupon",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/products",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/products",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/products",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/products",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/products",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/products",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/products",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/products",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/products",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/products",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "BOLA",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "AUTH_MISSING",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "PUT",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "BOLA",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "PUT",
+      "path": "/workshop/api/shop/orders/{order_id}",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/all",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/all",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/all",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/all",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/shop/orders/all",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders/return_order",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders/return_order",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders/return_order",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders/return_order",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/orders/return_order",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/apply_coupon",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/apply_coupon",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/apply_coupon",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/apply_coupon",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/shop/apply_coupon",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/management/users/all",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/management/users/all",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/management/users/all",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/management/users/all",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/management/users/all",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/merchant/contact_mechanic",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/merchant/contact_mechanic",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/merchant/contact_mechanic",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/merchant/contact_mechanic",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "POST",
+      "path": "/workshop/api/merchant/contact_mechanic",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/mechanic_report",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/mechanic_report",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/mechanic_report",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/mechanic_report",
+      "category": "JWT_NONE_ALG",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/mechanic_report",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/service_requests",
+      "category": "AUTH_MISSING",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/service_requests",
+      "category": "AUTH_INVALID_TOKEN",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/service_requests",
+      "category": "JWT_SIGNATURE",
+      "verdict": "denied"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/service_requests",
+      "category": "JWT_NONE_ALG",
+      "verdict": "vulnerable"
+    },
+    {
+      "method": "GET",
+      "path": "/workshop/api/mechanic/service_requests",
+      "category": "JWT_EXPIRED",
+      "verdict": "skipped"
+    }
+  ],
+  "summary": {
+    "totalFindings": 19,
+    "byStatus": {
+      "confirmed": 19,
+      "potential": 0,
+      "inconclusive": 0
+    },
+    "bySeverity": {
+      "critical": 17,
+      "high": 2,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "byCategory": {
+      "BOLA": 2,
+      "BFLA": 0,
+      "AUTH_MISSING": 1,
+      "AUTH_INVALID_TOKEN": 0,
+      "JWT_SIGNATURE": 1,
+      "JWT_NONE_ALG": 15,
+      "JWT_EXPIRED": 0
+    },
+    "confirmedBySeverity": {
+      "critical": 17,
+      "high": 2,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "endpointsTested": 32,
+    "totalRequests": 158,
+    "testsExecuted": 171,
+    "durationMs": 4306
+  }
+}
