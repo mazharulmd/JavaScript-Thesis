@@ -219,4 +219,6 @@ No third-party systems are tested and no personal data is used.
 * On VAmPI the role-aware oracle misses one blind write whose effect is not observable through the API
   (recall 0.667). Ownership-differential detection needs the API to expose ownership or a readable effect.
 * ZAP was evaluated in its standard single-user API scan. Its manual Access Control Testing add-on was not used.
-* crAPI (E8) is documented but not yet evaluated, and the CI workflow has not yet been run on GitHub (E7).
+* crAPI (E8) was run as an applicability demonstration, not a scored benchmark (no precision/recall): the
+  tool found crAPI's vehicle-location BOLA and its `alg:none` JWT bypass using configuration alone. See
+  `evaluation/results/2026-11-21-crapi-e8/`.

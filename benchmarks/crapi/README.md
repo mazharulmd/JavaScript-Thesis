@@ -1,6 +1,8 @@
 # OWASP crAPI benchmark
 
-**Status: setup documented; no experiment has been executed on crAPI yet.**
+**Status: executed as an applicability demonstration (E8).** The scanner was run against a live crAPI using
+`crapi.config.yaml` and `run-e8.sh`; it found the vehicle-location BOLA and the `alg:none` JWT bypass. Results and
+honest caveats (no precision/recall; crAPI's login lockout) are in `evaluation/results/2026-11-21-crapi-e8/`.
 
 [OWASP crAPI](https://github.com/OWASP/crAPI) ("completely ridiculous API") is a multi-service,
 intentionally vulnerable application: identity, community and workshop services, plus a web front end,
