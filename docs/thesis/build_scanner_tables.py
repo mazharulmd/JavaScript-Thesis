@@ -105,5 +105,40 @@ out.table('RQ3 - cost of one scan of the benchmark API (role-aware oracle, n = 5
           [6.0, 10.0],
           note='Per-run figures from evaluation/results/2026-11-21-scanner-test-api/rq3-timing.csv.')
 
+# E7 - CI pipeline run (RQ3 CI suitability). Facts from the archived run in
+# evaluation/results/2026-11-21-ci-e7/ (GitHub Actions run #29 on main).
+out.table('E7 - the scanner in a GitHub Actions pipeline (RQ3, CI suitability)',
+          ['Pipeline stage', 'Outcome'],
+          [['Unit and integration tests (80 tests)', 'passed'],
+           ['Start both benchmark builds (:3000, :3001) and wait for health', 'passed'],
+           ['Run the access-control scan (scan:ci)', 'passed'],
+           ['Security gate on the patched build (report --fail-on high)', 'passed (exit 0)'],
+           ['Detection regression check on the vulnerable build', 'passed'],
+           ['Upload reports as a build artifact', 'passed'],
+           ['Total wall time (GitHub-hosted runner)', 'approximately 40 s']],
+          [9.5, 6.5],
+          note='Reference run #29 on main; 29 workflow runs completed. The gate fails the pipeline on a confirmed '
+               'high/critical access-control finding (process exit code). Record: evaluation/results/2026-11-21-ci-e7/.')
+
+# E8 - crAPI findings by category (applicability demonstration, not scored).
+crapi = json.loads((ROOT / 'evaluation/results/2026-11-21-crapi-e8/crapi-findings.json').read_text())
+CAT_LABEL = {'BOLA': 'Broken object level authorization', 'BFLA': 'Broken function level authorization',
+             'AUTH_MISSING': 'Missing authentication', 'AUTH_INVALID_TOKEN': 'Malformed token accepted',
+             'JWT_SIGNATURE': 'JWT signature not verified', 'JWT_NONE_ALG': 'Unsigned (alg:none) token accepted',
+             'JWT_EXPIRED': 'Expired token accepted'}
+counts = {}
+for f in crapi['findings']:
+    counts[f['category']] = counts.get(f['category'], 0) + 1
+order = ['BOLA', 'BFLA', 'AUTH_MISSING', 'AUTH_INVALID_TOKEN', 'JWT_SIGNATURE', 'JWT_NONE_ALG', 'JWT_EXPIRED']
+rows = [[c, CAT_LABEL[c], counts[c]] for c in order if c in counts]
+rows.append(['Total', '', len(crapi['findings'])])
+out.table('E8 - findings on OWASP crAPI (applicability demonstration, not scored)',
+          ['Category', 'Description', 'Confirmed findings'], rows, [3.4, 9.6, 3.0],
+          note=f"Configuration only (crAPI has no x-access-control annotations); {crapi['meta']['requests']} requests, "
+               f"{crapi['meta']['durationMs'] / 1000:.1f} s. No precision/recall is claimed for crAPI. Two headline "
+               'findings were spot-verified: the vehicle-location BOLA (a user read a seeded vehicle owned by another '
+               'account) and the alg:none JWT bypass (a forged unsigned token returned the dashboard). The 15 unsigned-'
+               'token findings share one root cause. Record: evaluation/results/2026-11-21-crapi-e8/.')
+
 out.save(OUT)
 print(f'Wrote {OUT} ({out.table_no} tables)')
