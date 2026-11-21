@@ -1,0 +1,166 @@
+#!/usr/bin/env python3
+"""Builds docs/thesis/E1-E2-results-tables.docx: thesis-ready tables for the executed
+experiments E1 (OWASP ZAP on the benchmark API) and E2 (OWASP ZAP on VAmPI).
+
+Every number is read from the archived files in evaluation/results/ (metrics.json and the
+raw ZAP reports); nothing is typed in by hand. Styles come from the Savonia reporting template.
+
+Usage: python3 docs/thesis/build_results_tables.py
+"""
+import json
+from collections import Counter
+from pathlib import Path
+
+import docx
+from docx.oxml.ns import qn
+from docx.shared import Cm, Pt
+
+ROOT = Path(__file__).resolve().parents[2]
+TEMPLATE = ROOT / 'Thesis Template' / 'Reporting Template.docx'
+OUT = ROOT / 'docs' / 'thesis' / 'E1-E2-results-tables.docx'
+RES = ROOT / 'evaluation' / 'results'
+RUNS = {
+    'E1 vulnerable': RES / '2026-11-20-zap-test-api' / 'vulnerable',
+    'E1 patched': RES / '2026-11-20-zap-test-api' / 'patched',
+    'E2 vulnerable': RES / '2026-11-20-zap-vampi' / 'vulnerable',
+    'E2 patched': RES / '2026-11-20-zap-vampi' / 'patched',
+}
+LABELS = {
+    'PRIMARY': 'BOLA + BFLA', 'BOLA': 'BOLA', 'BFLA': 'BFLA', 'SECONDARY': 'Authentication / JWT (all)',
+    'AUTH_MISSING': 'Missing authentication', 'AUTH_INVALID_TOKEN': 'Malformed token accepted',
+    'JWT_SIGNATURE': 'JWT signature not verified', 'JWT_NONE_ALG': 'Unsigned JWT accepted',
+    'JWT_EXPIRED': 'Expired JWT accepted', 'OVERALL': 'All categories',
+}
+SCOPES = ['PRIMARY', 'BOLA', 'BFLA', 'SECONDARY', 'AUTH_MISSING', 'AUTH_INVALID_TOKEN', 'JWT_SIGNATURE', 'JWT_NONE_ALG', 'JWT_EXPIRED', 'OVERALL']
+
+
+def load(run):
+    metrics = json.loads((RUNS[run] / 'metrics' / 'metrics.json').read_text())
+    zap = json.loads((RUNS[run] / 'zap-report.json').read_text())
+    findings = json.loads((RUNS[run] / 'zap-findings.json').read_text())
+    return metrics, zap, findings
+
+
+def fmt(v):
+    return 'n/a' if v is None else f'{v:.3f}'
+
+
+# ---------------------------------------------------------------- document from the template
+doc = docx.Document(str(TEMPLATE))
+body = doc.element.body
+for el in list(body.iterchildren()):
+    if el.tag != qn('w:sectPr'):
+        body.remove(el)
+
+TABLE_NO = [0]
+
+
+def table(caption, header, rows, widths, note=None):
+    TABLE_NO[0] += 1
+    cap = doc.add_paragraph(f'TABLE {TABLE_NO[0]}. {caption}', style='Caption')
+    cap.paragraph_format.keep_with_next = True
+    t = doc.add_table(rows=1, cols=len(header))
+    t.style = doc.styles['Table Grid']
+    for i, h in enumerate(header):
+        t.rows[0].cells[i].text = ''
+        t.rows[0].cells[i].paragraphs[0].add_run(str(h)).bold = True
+    for row in rows:
+        cells = t.add_row().cells
+        for i, v in enumerate(row):
+            cells[i].text = str(v)
+    # Repeat the header row on every page and keep each row in one piece.
+    from docx.oxml import OxmlElement
+    trPr = t.rows[0]._tr.get_or_add_trPr()
+    trPr.append(OxmlElement('w:tblHeader'))
+    for row in t.rows:
+        row._tr.get_or_add_trPr().append(OxmlElement('w:cantSplit'))
+    # Fixed layout with explicit grid widths (LibreOffice and Word both honour tblGrid).
+    t.autofit = False
+    grid = t._tbl.tblGrid
+    for i, col in enumerate(grid.findall(qn('w:gridCol'))):
+        col.set(qn('w:w'), str(int(Cm(widths[i]).twips)))
+    for row in t.rows:
+        for i, cell in enumerate(row.cells):
+            cell.width = Cm(widths[i])
+            for p in cell.paragraphs:
+                p.paragraph_format.keep_with_next = row is not t.rows[-1]
+                # The template's Normal style is indented; table cells must not inherit that.
+                p.paragraph_format.left_indent = Cm(0)
+                p.paragraph_format.first_line_indent = Cm(0)
+                p.paragraph_format.space_before = Pt(1)
+                p.paragraph_format.space_after = Pt(1)
+                for r in p.runs:
+                    r.font.size = Pt(9)
+    if note:
+        p = doc.add_paragraph(note)
+        for r in p.runs:
+            r.font.size = Pt(9)
+    doc.add_paragraph()
+
+
+def metrics_table(caption, run, scopes):
+    metrics, _, _ = load(run)
+    m = metrics['results'][0]['metrics']['confirmed']
+    loose = metrics['results'][0]['metrics']['confirmed+potential']
+    same = all(m[s] == loose[s] for s in m)
+    rows = [[LABELS[s], m[s]['tp'], m[s]['fp'], m[s]['tn'], m[s]['fn'], fmt(m[s]['precision']), fmt(m[s]['recall']),
+             fmt(m[s]['f1']), fmt(m[s]['falsePositiveRate'])] for s in scopes if s in m]
+    table(caption, ['Scope', 'TP', 'FP', 'TN', 'FN', 'Precision', 'Recall', 'F1', 'FPR'], rows,
+          [4.4, 0.9, 0.9, 1.0, 1.0, 1.9, 1.5, 1.2, 1.4],
+          note=('Threshold: confirmed findings. The confirmed+potential threshold gives identical values.' if same
+                else 'Threshold: confirmed findings.') + ' n/a = undefined because the denominator is zero.')
+
+
+doc.add_paragraph('RESULTS TABLES: EXPERIMENTS E1 AND E2', style='Heading 1')
+p = doc.add_paragraph(
+    'Generated by docs/thesis/build_results_tables.py from the archived results in evaluation/results/. '
+    'Only executed experiments are included. Table and column wording can be edited when the tables are moved into the thesis.')
+
+# ---- Table 1: setup
+setup_rows = []
+for run in RUNS:
+    metrics, zap, _ = load(run)
+    r = metrics['results'][0]
+    gtt = metrics['groundTruth']['totals']
+    setup_rows.append([run, metrics['groundTruth']['benchmark'], metrics['groundTruth']['build'],
+                       f"{gtt['scored']} ({gtt['vulnerable']})", f"{r['durationMs'] / 1000:.1f}", zap.get('@version', '')])
+table('Executed runs of OWASP ZAP (API scan, one authenticated user)',
+      ['Run', 'Target', 'Build / mode', 'Scored cases (vulnerable)', 'Duration (s)', 'ZAP version'], setup_rows,
+      [2.3, 3.6, 3.6, 2.6, 1.7, 1.7],
+      note='Duration is wall-clock time including container start-up. Image: ghcr.io/zaproxy/zaproxy@sha256:9624669d…f328af. '
+           'Date of all runs: 2026-11-20. In the E2 vulnerable run, one operation (PUT /users/v1/{username}/email) was '
+           'excluded from the imported specification because a first attempt left the server unresponsive; that attempt '
+           'is archived and not scored.')
+
+# ---- Tables 2-5: metrics
+metrics_table('E1: OWASP ZAP on the benchmark API, vulnerable build (FLAWS=all)', 'E1 vulnerable', SCOPES)
+metrics_table('E1: OWASP ZAP on the benchmark API, patched build (FLAWS=none)', 'E1 patched', ['PRIMARY', 'SECONDARY', 'OVERALL'])
+metrics_table('E2: OWASP ZAP on VAmPI, vulnerable mode (vulnerable=1)', 'E2 vulnerable', ['PRIMARY', 'BOLA', 'BFLA', 'SECONDARY', 'OVERALL'])
+metrics_table('E2: OWASP ZAP on VAmPI, patched mode (vulnerable=0)', 'E2 patched', ['PRIMARY', 'BOLA', 'BFLA', 'SECONDARY', 'OVERALL'])
+
+# ---- Table 6: alerts actually raised by ZAP
+alert_counts = {}
+for run in RUNS:
+    _, zap, _ = load(run)
+    for site in zap.get('site', []):
+        for a in site.get('alerts', []):
+            key = (a.get('alert') or a.get('name'), f"CWE-{a.get('cweid')}" if str(a.get('cweid')) not in ('-1', '0', '') else '—',
+                   {'3': 'High', '2': 'Medium', '1': 'Low', '0': 'Info'}.get(str(a.get('riskcode')), ''))
+            alert_counts.setdefault(key, Counter())[run] += len(a.get('instances', []))
+rows = [[k[0], k[1], k[2], *[alert_counts[k].get(run, 0) for run in RUNS]] for k in sorted(alert_counts, key=lambda k: k[0])]
+table('Alerts raised by OWASP ZAP (number of alert instances per run)',
+      ['Alert', 'CWE', 'Risk', *RUNS.keys()], rows, [5.0, 1.6, 1.3, 1.9, 1.9, 1.9, 1.9],
+      note='None of these alerts maps to an access-control category under the predefined CWE mapping '
+           '(evaluation/adapters/zap.js), so none counts as a detection in Tables 2–5.')
+
+# ---- Table 7: what was mapped
+mapped_rows = []
+for run in RUNS:
+    _, _, f = load(run)
+    mapped_rows.append([run, len(f['findings']), len(f.get('outOfScope', []))])
+table('ZAP alert instances after mapping to the findings format',
+      ['Run', 'Access-control findings', 'Out-of-scope alert instances'], mapped_rows, [3.5, 4.5, 5.0])
+
+OUT.parent.mkdir(parents=True, exist_ok=True)
+doc.save(str(OUT))
+print(f'Wrote {OUT}')
