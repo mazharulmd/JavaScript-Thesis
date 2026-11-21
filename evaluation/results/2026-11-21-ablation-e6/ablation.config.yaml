@@ -1,0 +1,294 @@
+# E6 ablation variant B: policy supplied via config accessRules (as a tester would for an
+# un-annotated real API), used with evaluation/datasets/openapi.no-annotations.yaml.
+target: http://localhost:3000
+allowedHosts:
+  - localhost
+  - 127.0.0.1
+  - ::1
+auth:
+  header: Authorization
+  scheme: Bearer
+  jwtSecretEnv: JWT_SECRET
+  login:
+    method: POST
+    path: /api/auth/login
+    body:
+      username: "{{username}}"
+      password: "{{password}}"
+    tokenPath: token
+    identityPath: user.id
+roles:
+  admin:
+    level: 100
+    bypassOwnership: true
+  user:
+    level: 10
+  guest:
+    level: 1
+accounts:
+  - name: admin
+    role: admin
+    username: admin
+    password: Admin#2026
+  - name: alice
+    role: user
+    username: alice
+    password: Alice#2026
+  - name: bob
+    role: user
+    username: bob
+    password: Bob#2026
+  - name: guest
+    role: guest
+    username: guest
+    password: Guest#2026
+ownership:
+  fields:
+    - ownerId
+    - userId
+    - accountId
+    - createdBy
+    - owner
+  publicIndicators:
+    - field: visibility
+      equals: public
+accessRules:
+  - path: /api/users/{userId}
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: id
+  - path: /api/users/{userId}
+    methods:
+      - PATCH
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: id
+  - path: /api/profiles/{userId}
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: userId
+  - path: /api/accounts/{accountId}/summary
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: accountId
+  - path: /api/orders
+    methods:
+      - POST
+    roles:
+      - admin
+      - user
+    ownership: none
+  - path: /api/orders/{orderId}
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/orders/{orderId}
+    methods:
+      - PUT
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/orders/{orderId}
+    methods:
+      - DELETE
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/invoices/{invoiceId}
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: data.invoice.billing.accountId
+  - path: /api/documents
+    methods:
+      - POST
+    roles:
+      - admin
+      - user
+    ownership: none
+  - path: /api/documents/{documentId}
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/documents/{documentId}
+    methods:
+      - PATCH
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/documents/{documentId}
+    methods:
+      - DELETE
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/devices
+    methods:
+      - POST
+    roles:
+      - admin
+      - user
+    ownership: none
+  - path: /api/devices/{deviceId}
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/devices/{deviceId}
+    methods:
+      - DELETE
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/devices/{deviceId}/readings
+    methods:
+      - GET
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+  - path: /api/devices/{deviceId}/readings
+    methods:
+      - POST
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+  - path: /api/devices/{deviceId}/config
+    methods:
+      - PUT
+    roles:
+      - admin
+      - user
+      - guest
+    ownership: owner
+    ownerField: ownerId
+  - path: /api/products
+    methods:
+      - POST
+    roles:
+      - admin
+    ownership: none
+  - path: /api/products/{productId}
+    methods:
+      - PUT
+    roles:
+      - admin
+    ownership: none
+  - path: /api/products/{productId}
+    methods:
+      - DELETE
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/users
+    methods:
+      - GET
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/users
+    methods:
+      - POST
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/users/{userId}
+    methods:
+      - DELETE
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/users/{userId}/role
+    methods:
+      - PUT
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/stats
+    methods:
+      - GET
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/reports
+    methods:
+      - GET
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/audit-logs
+    methods:
+      - GET
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/announcements
+    methods:
+      - POST
+    roles:
+      - admin
+    ownership: none
+  - path: /api/admin/backups
+    methods:
+      - POST
+    roles:
+      - admin
+    ownership: none
+scan:
+  requestTimeoutMs: 5000
+  delayMs: 0
+  maxRequests: 5000
