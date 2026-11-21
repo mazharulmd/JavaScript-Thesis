@@ -13,3 +13,7 @@ reports/html/*
 # Scratch output of evaluation runs (validated runs are copied to evaluation/results/<run-id>/)
 evaluation/results/tmp/
 benchmarks/crapi/crAPI/
+
+# Python build artifacts
+__pycache__/
+*.pyc
